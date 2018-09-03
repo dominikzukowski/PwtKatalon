@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PwtKatalon.Models
+namespace PwtKatalonApi.Models
 {
     public partial class Organization
     {

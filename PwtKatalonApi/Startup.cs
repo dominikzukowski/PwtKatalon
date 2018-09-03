@@ -9,9 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using PwtKatalon.Models;
+using PwtKatalonApi.Models;
 
-namespace PwtKatalon
+namespace PwtKatalonApi
 {
     public class Startup
     {

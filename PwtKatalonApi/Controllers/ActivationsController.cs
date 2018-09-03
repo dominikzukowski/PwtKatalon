@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PwtKatalon.Models;
+using PwtKatalonApi.Models;
 
-namespace PwtKatalon.Controllers
+namespace PwtKatalonApi.Controllers
 {
     [Produces("application/json")]
     [Route("api/Activations")]

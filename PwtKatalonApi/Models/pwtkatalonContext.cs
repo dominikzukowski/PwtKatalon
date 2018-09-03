@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace PwtKatalon.Models
+namespace PwtKatalonApi.Models
 {
     public partial class pwtkatalonContext : DbContext
     {
