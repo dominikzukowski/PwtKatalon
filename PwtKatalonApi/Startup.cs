@@ -26,6 +26,7 @@ namespace PwtKatalonApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            
             var connection = @"Server=QMNACMS8266\SQL2014;Database=pwtkatalon;User ID=katalon_user;Password=katalon_pass;ConnectRetryCount=0";
             services.AddDbContext<pwtkatalonContext>(options => options.UseSqlServer(connection));
         }
@@ -39,6 +40,12 @@ namespace PwtKatalonApi
                 app.UseBrowserLink();
             }
             app.UseStaticFiles();
+
+            app.UseCors(builder => builder
+               .AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowCredentials());
 
             app.UseMvc(routes =>
             {

@@ -1,0 +1,24 @@
+<div class="panel panel-primary">
+  <div class='panel-body'>
+      <div class='table-responsive'>
+          <table class='table'>
+              <thead>
+                  <tr>
+                      <th>Id</th>
+                      <th>Time</th>
+                      <th>Status</th>
+                      <th>Report Name</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor ='let activation of activations'>
+                      <th>{{activation.id}}</th>
+                      <th>{{activation.activationTime}}</th>
+                      <th>{{activation.status}}</th>
+                      <th>{{activation.reportName}}</th>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>
