@@ -22,9 +22,9 @@ namespace PwtKatalonApi.Controllers
 
         // GET: api/Activations
         [HttpGet]
-        public IEnumerable<Activations> GetActivations()
+        public IEnumerable<dynamic> GetActivations()
         {
-            return _context.Activations;
+            return _context.Activations.Select(a => new { a.Id, a.ActivationTime, a.Status, a.ReportName }).OrderByDescending(a=>a.ActivationTime);
         }
 
         // GET: api/Activations/5

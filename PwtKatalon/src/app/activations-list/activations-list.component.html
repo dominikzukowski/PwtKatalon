@@ -8,14 +8,16 @@
                       <th>Time</th>
                       <th>Status</th>
                       <th>Report Name</th>
+                      <th>test</th>
                   </tr>
               </thead>
               <tbody>
                   <tr *ngFor ='let activation of activations'>
-                      <th>{{activation.id}}</th>
-                      <th>{{activation.activationTime}}</th>
-                      <th>{{activation.status}}</th>
-                      <th>{{activation.reportName}}</th>
+                      <td>{{activation.id}}</td>
+                      <td>{{activation.activationTime}}</td>
+                      <td>{{activation.status}}</td>
+                      <td>{{activation.reportName}}</td>
+                      <td>{{activation.SendUserID}}</td>
                   </tr>
               </tbody>
           </table>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { IActivation } from 'src/app/activations-list/activation';
 
 @Component({
   selector: 'app-activations-list',
@@ -7,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./activations-list.component.css']
 })
 export class ActivationsListComponent implements OnInit {
-  activations: string[];  
+  activations: IActivation[];  
 
   constructor(private httpClient: HttpClient) {
     this.activations = [];
@@ -19,7 +20,7 @@ export class ActivationsListComponent implements OnInit {
 
   getActivations() {
     const apiUrl = 'http://pwtkatalon/api/activations';
-    let response = this.httpClient.get<string[]>(apiUrl);
+    let response = this.httpClient.get<IActivation[]>(apiUrl);
     return response;
   }
 
