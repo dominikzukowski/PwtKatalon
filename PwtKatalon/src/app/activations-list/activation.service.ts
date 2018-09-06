@@ -12,7 +12,7 @@ export class ActivationService {
     }
 
     getActivations() {
-        const apiUrl = 'http://pwtkatalon/api/activations/2';
+        const apiUrl = 'http://pwtkatalon/api/activations';
         let response$ = this.httpClient.get<IActivation[]>(apiUrl).pipe(
             tap(data => console.log('All: ' + JSON.stringify(data))),
             catchError(this.handleError));
