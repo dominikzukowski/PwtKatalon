@@ -23,5 +23,10 @@ namespace PwtKatalonApi.Models
         public byte[] ZippedResults { get; set; }
         public string JunitResult { get; set; }
         public string JsonResult { get; set; }
+        public byte? CounterTotal { get; set; }
+        public byte? CounterPassed { get; set; }
+        public byte? CounterFailed { get; set; }
+        public byte? CounterErrors { get; set; }
+        public int? CounterSeconds { get; set; }
     }
 }

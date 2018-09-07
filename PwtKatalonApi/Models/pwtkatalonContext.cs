@@ -45,8 +45,6 @@ namespace PwtKatalonApi.Models
                     .IsUnicode(false)
                     .HasDefaultValueSql("('')");
 
-                entity.Property(e => e.JunitResult).HasColumnType("xml");
-
                 entity.Property(e => e.ReceiveUserId).HasColumnName("ReceiveUserID");
 
                 entity.Property(e => e.ReportName)
