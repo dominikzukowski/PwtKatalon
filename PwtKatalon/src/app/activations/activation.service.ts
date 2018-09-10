@@ -11,6 +11,12 @@ export class ActivationService {
     constructor(private httpClient: HttpClient){
     }
 
+    getActivation(id: number) {
+        const apiUrl = `http://pwtkatalon/api/activations/${id}`;
+        let response$ = this.httpClient.get<IActivation>(apiUrl);
+        return response$;
+    }
+
     getActivations() {
         const apiUrl = 'http://pwtkatalon/api/activations';
         let response$ = this.httpClient.get<IActivation[]>(apiUrl).pipe(

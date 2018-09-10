@@ -36,7 +36,27 @@ namespace PwtKatalonApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var activations = await _context.Activations.SingleOrDefaultAsync(m => m.Id == id);
+            var activations = await _context.Activations.Select(a => new
+                {a.Id,
+                a.ActivationTime,
+                a.SchedulerId,
+                a.SendUserId,
+                a.ReceiveUserId,
+                a.Comment,
+                a.TestSuite,
+                a.ReportName,
+                a.Status,
+                a.RunArguments,
+                a.EnvironmentId,
+                a.Version,
+                //a.JunitResult,
+                //a.JsonResult,
+                a.CounterTotal,
+                a.CounterPassed,
+                a.CounterFailed,
+                a.CounterErrors,
+                a.CounterSeconds
+            }).SingleOrDefaultAsync(m => m.Id == id);
 
             if (activations == null)
             {

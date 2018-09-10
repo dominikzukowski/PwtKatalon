@@ -15,7 +15,7 @@ export class ActivationsListComponent implements OnInit {
 
   populateActivations() {
     this.service.getActivations().subscribe((res) => this.activations = res,
-  error => this.errorMessage = <any>error );
+    error => this.errorMessage = <any>error );
   }
 
   ngOnInit() {

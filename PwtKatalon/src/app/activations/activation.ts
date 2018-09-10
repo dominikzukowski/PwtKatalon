@@ -1,30 +1,25 @@
 export interface IActivation {
     id:	number;
-    ActivationTime:	Date;
-    SchedulerID: number;
-    SendUserID: number;
-    ReceiveUserID: number;
-    Comment: string;
-    TestSuite: string;
-    ReportName: string;
-    ConsoleLog: string;
-    ErrorLog: string;
-    GitLog: string;
-    Status: string;
-    RunArguments: string;
-    EnvironmentId: string;
-    Version: string;
-    ZippedResults: string;
-    JunitResult: string;
-    JsonResult: string;
-    CounterTotal: number;
-    CounterPassed: number;
-    CounterFailed: number;
-    CounterErrors: number;
-    CounterSeconds: number;
+    activationTime:	Date;
+    schedulerID: number;
+    sendUserID: number;
+    receiveUserID: number;
+    comment: string;
+    testSuite: string;
+    reportName: string;
+    consoleLog: string;
+    errorLog: string;
+    gitLog: string;
+    status: string;
+    runArguments: string;
+    environmentId: string;
+    version: string;
+    zippedResults: string;
+    junitResult: string;
+    jsonResult: string;
+    counterTotal: number;
+    counterPassed: number;
+    counterFailed: number;
+    counterErrors: number;
+    counterSeconds: number;
 }
-
-
-
-
-	
