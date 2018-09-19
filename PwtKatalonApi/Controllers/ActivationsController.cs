@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -24,7 +25,7 @@ namespace PwtKatalonApi.Controllers
         [HttpGet]
         public IEnumerable<dynamic> GetActivations()
         {
-            return _context.Activations.Select(a => new { a.Id, a.ActivationTime, a.Status, a.ReportName }).OrderByDescending(a=>a.ActivationTime);
+            return _context.Activations.Select(a => new { a.Id, a.Status ,a.ActivationTime, a.EnvironmentId, a.Version }).OrderByDescending(a=>a.ActivationTime);
         }
 
         // GET: api/Activations/5
@@ -64,6 +65,23 @@ namespace PwtKatalonApi.Controllers
             }
 
             return Ok(activations);
+        }
+
+        [HttpGet("{id}/report")]
+        public async Task<IActionResult> GetActivationReport([FromRoute] int id)
+        {
+            var report = _context.Activations.Select(a=> new { a.Id, a.ZippedResults }).FirstOrDefaultAsync(b => b.Id == id);
+            if (report == null || report.Result.ZippedResults == null)
+            {
+                return NotFound();
+            }
+            var convertedReport = Convert.ToBase64String(report.Result.ZippedResults);
+
+            //byte[] imageBytes = Convert.FromBase64String(convertedReport);
+            //var path = Path.Combine("C:/develop", "test.zip");
+            //System.IO.File.WriteAllBytes(path, imageBytes);
+
+            return Ok(convertedReport);
         }
 
         // PUT: api/Activations/5

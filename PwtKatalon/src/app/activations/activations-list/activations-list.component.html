@@ -8,16 +8,20 @@
             <table class='table' *ngIf='activations && activations.length'>
                 <thead>
                     <tr>
+                        <th>Date</th>
                         <th>Time</th>
                         <th>Status</th>
-                        <th>Report Name</th>
+                        <th>Environment</th>
+                        <th>Version</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor ='let activation of activations'>
-                        <td><a [routerLink] = "['/activation', activation.id]"> {{activation.activationTime}} </a></td>
+                        <td><a [routerLink] = "['/activation', activation.id]"> {{activation.activationTime| date:'dd-MM-yyyy'}} </a></td>
+                        <td>{{activation.activationTime | date:'HH:mm:ss'}}</td>
                         <td>{{activation.status}}</td>
-                        <td>{{activation.reportName}}</td>
+                        <td>{{activation.environmentId}}</td>
+                        <td>{{activation.version}}</td>
                     </tr>
                 </tbody>
             </table>
