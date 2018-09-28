@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { ActivationService } from '../activation.service';
 import * as FileSaver from 'file-saver';
 
+
 @Component({
   templateUrl: './activation-details.component.html',
   styleUrls: ['./activation-details.component.css']
@@ -38,20 +39,6 @@ export class ActivationDetailsComponent implements OnInit {
   }
 
   public chartClicked(e:any):void {
-  //   let report;
-  //   this.service.getActivationReport(this.activation.id).subscribe((res)=>{
-  //     report = res
-  //     console.log(report)
-  //    let blob = new Blob([this.str2bytes(report)], {type: 'application/zip'});
-  //  window.
-  //   FileSaver.saveAs(blob, 'reports.zip');    
-    // });
-      // this.service.getBlob(this.activation.id).subscribe((res:any) => {
-      //   const blob = new Blob([res._body], {type:'application/zip'});
-      //   saveAs(blob, "test.zip");
-      // })
-
-
   }
 
   str2bytes (str: String) {

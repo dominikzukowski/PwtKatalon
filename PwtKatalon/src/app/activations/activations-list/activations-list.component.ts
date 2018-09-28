@@ -9,6 +9,7 @@ import { ActivationService } from '../activation.service';
 export class ActivationsListComponent implements OnInit {
   activations: IActivation[];  
   errorMessage: any;
+  
   constructor(private service: ActivationService) {
     this.activations = [];
   }

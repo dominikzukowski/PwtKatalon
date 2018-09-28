@@ -30,19 +30,37 @@ export class ActivationService {
     getActivationReport(id: number) {
         const apiUrl = `${environment.apiUrl}activations/${id}/report`;
         let response$ = this.httpClient.get<string>(apiUrl).pipe(
-            //tap(data => console.log('All: ' + JSON.stringify(data))),
+            tap(data => console.log('All: ' + JSON.stringify(data))),
             catchError(this.handleError));
         return response$;
     }
 
-    // getBlob(id:number){
-    //     const apiUrl = `${environment.apiUrl}activations/${id}/reportblob`;
-    //     let response$ = this.httpClient.get<IActivation>(apiUrl).pipe(
-    //         tap(data => console.log('All: ' + JSON.stringify(data))),
-    //         catchError(this.handleError));
-    //     )
-    //     return response$;
-    // }
+    getVersions()
+    {
+        const apiUrl = `${environment.apiUrl}activations/versions`;
+        let response$ = this.httpClient.get<string[]>(apiUrl).pipe(
+            tap(data => console.log('All: ' + JSON.stringify(data))),
+            catchError(this.handleError));
+        return response$;
+    }
+
+    getEnvironments()
+    {
+        const apiUrl = `${environment.apiUrl}activations/environments`;
+        let response$ = this.httpClient.get<string[]>(apiUrl).pipe(
+            tap(data => console.log('All: ' + JSON.stringify(data))),
+            catchError(this.handleError));
+        return response$;
+    }
+
+    getDetails(environmentId:string, version:string)
+    {
+        const apiUrl = `${environment.apiUrl}activations/details/${environmentId}/${version}`;
+        let response$ = this.httpClient.get<Array<Array<string>>>(apiUrl).pipe(
+            tap(data => console.log('All: ' + JSON.stringify(data))),
+            catchError(this.handleError));
+        return response$;
+    }
 
     private handleError(err:HttpErrorResponse) {
         let errorMessage = '';

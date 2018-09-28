@@ -29,7 +29,7 @@ namespace PwtKatalonApi.Controllers
         }
 
         // GET: api/Activations/5
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetActivations([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -67,7 +67,7 @@ namespace PwtKatalonApi.Controllers
             return Ok(activations);
         }
 
-        [HttpGet("{id}/report")]
+        [HttpGet("{id:int}/report")]
         public async Task<IActionResult> GetActivationReport([FromRoute] int id)
         {
             var report = _context.Activations.Select(a=> new { a.Id, a.ZippedResults }).FirstOrDefaultAsync(b => b.Id == id);
@@ -75,13 +75,49 @@ namespace PwtKatalonApi.Controllers
             {
                 return NotFound();
             }
-            var convertedReport = Convert.ToBase64String(report.Result.ZippedResults);
 
             //byte[] imageBytes = Convert.FromBase64String(convertedReport);
             //var path = Path.Combine("C:/develop", "test.zip");
             //System.IO.File.WriteAllBytes(path, imageBytes);
 
-            return Ok(convertedReport);
+            return Ok(report.Result.ZippedResults);
+        }
+
+        [HttpGet("versions")]
+        public IEnumerable<string> GetVersions()
+        {
+            return _context.Activations.Select(a => a.Version).Distinct();
+        }
+
+        [HttpGet("environments")]
+        public IEnumerable<string> GetEnvironments()
+        {
+            return _context.Activations.Select(a => a.EnvironmentId).Distinct();
+        }
+
+        [HttpGet("details/{environment}/{version}")]
+        public async Task<IActionResult> GetDetailsForEnvironmentVersion([FromRoute] string environment, string version)
+        {
+            var act = _context.Activations.Select(a=>new
+            {
+                a.ActivationTime,
+                a.CounterPassed,
+                a.CounterFailed,
+                a.CounterErrors,
+                a.EnvironmentId,
+                a.Version
+            })
+                .Where(a => a.EnvironmentId == environment && a.Version == version).ToList();
+            var dupa = new List<List<string>>();
+
+            dupa.Add(new List<string> { "Dates", "Passed", "Failed", "Errors" });
+            foreach (var item in act)
+            {
+                dupa.Add(new List<string> { item.ActivationTime.ToString(), item.CounterPassed.ToString(), item.CounterFailed.ToString(), item.CounterErrors.ToString() });
+            }
+
+            
+            return Ok(dupa);
         }
 
         // PUT: api/Activations/5
@@ -118,6 +154,8 @@ namespace PwtKatalonApi.Controllers
 
             return NoContent();
         }
+
+
 
         // POST: api/Activations
         [HttpPost]

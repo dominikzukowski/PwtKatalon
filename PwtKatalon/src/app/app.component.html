@@ -1,15 +1,22 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-</div>
-
-<div class="topnav" id="myTopnav">
-    <a [routerLink] = "['/activations']" >Reports</a>
-    <a [routerLink] = "['/charts']">Charts</a>
-    <a [routerLink] = "['/scheduler']">Scheduler</a>
-</div>
-  <div>
+<div id="holder">
+    <div style="text-align:center">
+      <h1>
+        Welcome to {{ title }}!
+      </h1>
+  </div>
+  <div class="topnav" id="myTopnav">
+    <a [routerLink]="['/activations']">Reports</a>
+    <a [routerLink]="['/charts']">Charts</a>
+    <a [routerLink]="['/scheduler']">Scheduler</a>
+  </div>
+  <div id="body">
     <router-outlet></router-outlet>
   </div>
+
+  <div class="container" id="footer">
+    <p>
+      ©2018 Made by Dominik
+    </p>
+  </div>
+
+</div>

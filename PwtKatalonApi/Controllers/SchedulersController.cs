@@ -25,8 +25,11 @@ namespace PwtKatalonApi.Controllers
         [HttpGet]
         public IEnumerable<dynamic> GetSchedules()
         {
-            return _context.Scheduller.OrderByDescending(s => s.DateFrom);
-            return _context.Activations.Select(a => new { a.Id, a.Status ,a.ActivationTime, a.EnvironmentId, a.Version }).OrderByDescending(a=>a.ActivationTime);
+            //return _context.Scheduller.OrderByDescending(s => s.DateFrom);
+
+            return _context.Scheduller.Include(u=>u.SendUser).Select(s=>new { s.Id, s.SendUser.Login, s.DateFrom, s.Repeats });
+
+            //return _context.Activations.Select(a => new { a.Id, a.Status ,a.ActivationTime, a.EnvironmentId, a.Version }).OrderByDescending(a=>a.ActivationTime);
         }
 
         // GET: api/Schedulers/5
@@ -38,7 +41,20 @@ namespace PwtKatalonApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var schedule = await _context.Scheduller.FirstOrDefaultAsync(s => s.Id == id);
+            var schedule = await _context.Scheduller.Include(u => u.SendUser)
+                                                    .Select(s=>new
+                                                    {
+                                                        s.Id,
+                                                        s.SendUser.Login,
+                                                        s.DateFrom,
+                                                        s.DateTo,
+                                                        s.ActivationHour,
+                                                        s.AlternativeTestSuite,
+                                                        s.Comment,
+                                                        s.Repeats,
+                                                        s.SendUserId
+                                                    })
+                                                    .FirstOrDefaultAsync(s => s.Id == id);
 
             if (schedule == null)
             {

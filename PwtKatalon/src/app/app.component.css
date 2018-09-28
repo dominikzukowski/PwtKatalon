@@ -26,3 +26,16 @@
     background-color: #4CAF50;
     color: white;
 }
+
+
+
+#holder {
+    min-height: 100%;
+    position:relative;
+}
+
+#footer{
+    bottom: 0px;
+    position: absolute;
+    text-align: center;
+}

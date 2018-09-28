@@ -1,32 +1,129 @@
 <div class='card'>
-  <div class = 'card-header'>
+  <div class='card-header'>
     Report details
   </div>
-  <div class = 'card-body' *ngIf='!activation'>Loading...</div>
-  <div class = 'card-body' *ngIf='activation'>
+  <iframe id="inlineFrameExample"
+    title="Inline Frame Example"
+    width="300"
+    height="200"
+    src="https://www.openstreetmap.org/export/embed.html?bbox=-0.004017949104309083%2C51.47612752641776%2C0.00030577182769775396%2C51.478569861898606&layer=mapnik">
+</iframe>
+  <div class='card-body' *ngIf='!activation'>Loading...</div>
+  <div class='card-body' *ngIf='activation'>
     <div class='container'>
-        <div class="row">
-      <div class='col-sm'>
-        <p>Id =  {{activation.id}}</p>
-        <p>CounterPassed = {{activation.counterPassed}}</p>
-        <p>CounterFailed = {{activation.counterFailed}}</p>
-      </div>
-      <div class='col-sm'>
-          <canvas baseChart
-                  [data]="chartData"
-                  [labels]="chartLabels"
-                  [chartType]="chartType"
-                  [colors] = "chartColors"
-                  (chartHover)="chartHovered($event)"
-                  (chartClick)="chartClicked($event)"></canvas>
-      </div>
+      <div class="row">
+        <div class="col-sm">
+          <div class="row border-bottom">
+            <div class="col-4">Id</div>
+            <div class="col-8">{{activation.id}}</div>
+          </div>
+          <div class="row border-bottom">
+            <div class="col-4">Version</div>
+            <div class="col-8">{{activation.version}}</div>
+          </div>
+          <div class="row border-bottom">
+            <div class="col-4">Activation Time</div>
+            <div class="col-8">{{activation.activationTime}}</div>
+          </div>
+          <div class="row border-bottom">
+            <div class="col-4">Environment</div>
+            <div class="col-8">{{activation.environmentId}}</div>
+          </div>
+          <div class="row border-bottom">
+            <div class="col-4">Status</div>
+            <div class="col-8">{{activation.status}}</div>
+          </div>
+          <div class="row border-bottom">
+            <div class="col-4">Total tests</div>
+            <div class="col-8">{{activation.counterTotal}}</div>
+          </div>
+          <div class="row border-bottom">
+            <div class="col-4">Passed</div>
+            <div class="col-8">{{activation.counterPassed}}</div>
+          </div>
+          <div class="row border-bottom">
+            <div class="col-4">Failed</div>
+            <div class="col-8">{{activation.counterFailed}}</div>
+          </div>
+          <div class="row border-bottom">
+            <div class="col-4">Errors</div>
+            <div class="col-8">{{activation.counterErrors}}</div>
+          </div>
+          <div class="row border-bottom">
+            <div class="col-4">Counter Seconds</div>
+            <div class="col-8">{{activation.counterSeconds}}</div>
+          </div>
+
+          <div class="row border-bottom">
+            <div class="col-4">Scheduler ID</div>
+            <div class="col-8">{{activation.schedulerID}}</div>
+          </div>
+          <div class="row border-bottom">
+            <div class="col-4">Send User ID</div>
+            <div class="col-8">{{activation.sendUserID}}</div>
+          </div>
+          <div class="row border-bottom">
+            <div class="col-4">Receive UserID</div>
+            <div class="col-8">{{activation.receiveUserID}}</div>
+          </div>
+          <div class="row border-bottom">
+            <div class="col-4">Comment</div>
+            <div class="col-8">{{activation.comment}}</div>
+          </div>
+          <div class="row border-bottom">
+            <div class="col-4">Test Suite</div>
+            <div class="col-8">{{activation.testSuite}}</div>
+          </div>
+          <div class="row border-bottom">
+            <div class="col-4">Report Name</div>
+            <div class="col-8">{{activation.reportName}}</div>
+          </div>
+          <div class="row border-bottom">
+            <div class="col-4">Console Log</div>
+            <div class="col-8">{{activation.consoleLog}}</div>
+          </div>
+          <div class="row border-bottom">
+            <div class="col-4">Test Suite</div>
+            <div class="col-8">{{activation.testSuite}}</div>
+          </div>
+          <div class="row border-bottom">
+            <div class="col-4">Console Log</div>
+            <div class="col-8">{{activation.consoleLog}}</div>
+          </div>
+          <div class="row border-bottom">
+            <div class="col-4">Error Log</div>
+            <div class="col-8">{{activation.errorLog}}</div>
+          </div>
+          <div class="row border-bottom">
+            <div class="col-4">Git Log</div>
+            <div class="col-8">{{activation.gitLog}}</div>
+          </div>
+          <div class="row border-bottom">
+            <div class="col-4">Run Arguments</div>
+            <div class="col-8">{{activation.runArguments}}</div>
+          </div>
+          <div class="row border-bottom">
+            <div class="col-4">Json Result</div>
+            <div class="col-8">{{activation.jsonResult}}</div>
+          </div>
+          <div class="row border-bottom">
+            <div class="col-4">Junit Result</div>
+            <div class="col-8">{{activation.junitResult}}</div>
+          </div>
+
+
+
+
+        </div>
+        <div class="col-sm">
+          <canvas baseChart [data]="chartData" [labels]="chartLabels" [chartType]="chartType" [colors]="chartColors"
+            (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+        </div>
       </div>
     </div>
   </div>
-  <div class = 'card-footer'>
-    <button class = 'btn btn-outline-secondary'
-        (click)='onBack()'
-        style='width:80px'>
-    <i class='fa fa-chevron-left'></i>Back</button>
+  <div class='card-footer'>
+    <button class='btn btn-outline-secondary' (click)='onBack()' style='width:80px'>
+      <i class='fa fa-chevron-left'></i>Back</button>
   </div>
 </div>
