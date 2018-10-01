@@ -76,11 +76,7 @@ namespace PwtKatalonApi.Controllers
                 return NotFound();
             }
 
-            //byte[] imageBytes = Convert.FromBase64String(convertedReport);
-            //var path = Path.Combine("C:/develop", "test.zip");
-            //System.IO.File.WriteAllBytes(path, imageBytes);
-
-            return Ok(report.Result.ZippedResults);
+            return File(report.Result.ZippedResults, "application/zip");
         }
 
         [HttpGet("versions")]

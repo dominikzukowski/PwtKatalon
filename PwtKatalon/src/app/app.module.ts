@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ChartsModule } from 'ng2-charts';
-import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { ActivationsListComponent } from './activations/activations-list/activations-list.component';
@@ -26,7 +25,6 @@ import { ChartsComponent } from './charts/charts/charts.component';
   imports: [
     BrowserModule,
     HttpClientModule,
-    HttpModule,
     FormsModule,
     ChartsModule,
     ReactiveFormsModule,

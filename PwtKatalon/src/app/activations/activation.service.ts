@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { ResponseContentType } from '@angular/http'
 import { IActivation } from "./activation";
 import { catchError, tap} from "rxjs/operators";
 import { throwError } from "rxjs";
@@ -27,9 +26,9 @@ export class ActivationService {
         return response$;
     }
 
-    getActivationReport(id: number) {
+    getReport(id: number){
         const apiUrl = `${environment.apiUrl}activations/${id}/report`;
-        let response$ = this.httpClient.get<string>(apiUrl).pipe(
+        let response$ = this.httpClient.get(apiUrl, {responseType: 'arraybuffer'}).pipe(
             tap(data => console.log('All: ' + JSON.stringify(data))),
             catchError(this.handleError));
         return response$;
