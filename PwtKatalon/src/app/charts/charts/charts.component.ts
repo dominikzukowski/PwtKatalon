@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivationService } from '../../activations/activation.service';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-charts',
@@ -37,37 +38,35 @@ export class ChartsComponent implements OnInit {
   }
   ];
 
-  constructor(private service: ActivationService) { }
-
+  constructor(private service: ActivationService, private router: Router) { }
 
   refreshChart() {
-   // console.log("Dupa:" + this.versionId);
     this.getDetails(this.environmentDrop.value, this.versionDrop.value);
-   // console.log(    this.versionI.value);
+  }
+
+  openActivationDetails(e: any) {
+    console.log(this.details[e + 1][4]);
+    this.router.navigate(['/activation', this.details[e + 1][4]]);
   }
 
   ngOnInit() {
-    this.service.getVersions().subscribe((res) => {this.versions = res;
+    this.service.getVersions().subscribe((res) => {
+      this.versions = res;
       this.versionDrop.setValue(this.versions[0]);
-      this.service.getEnvironments().subscribe((res) => { this.envinronments = res
+      this.service.getEnvironments().subscribe((res) => {
+        this.envinronments = res
         this.environmentDrop.setValue(this.envinronments[0]);
         this.refreshChart();
       });
     });
-    // this.service.getEnvironments().subscribe((res) => { this.envinronments = res
-    //   this.environmentDrop.setValue(this.envinronments[0]);
-    //   this.refreshChart();
-    // });
-    
-    //this.refreshChart()
-    
   }
+
 
 
 
   private getDetails(environment: string, version: string) {
     this.service.getDetails(environment, version).subscribe((res) => {
-      
+
       if (this.lineChartData)
         this.lineChartData.length = 0;
 
@@ -84,7 +83,12 @@ export class ChartsComponent implements OnInit {
   }
 
   public chartClicked(e: any): void {
-    console.log(e);
+    try {
+      console.log(e.active[0]._index)
+    }
+    catch (err) {
+      console.log(err);
+    }
   }
 
   public chartHovered(e: any): void {
