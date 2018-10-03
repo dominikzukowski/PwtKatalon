@@ -101,19 +101,20 @@ namespace PwtKatalonApi.Controllers
                 a.CounterFailed,
                 a.CounterErrors,
                 a.EnvironmentId,
-                a.Version
+                a.Version,
+                a.Id
             })
                 .Where(a => a.EnvironmentId == environment && a.Version == version).ToList();
-            var dupa = new List<List<string>>();
+            var result = new List<List<string>>();
 
-            dupa.Add(new List<string> { "Dates", "Passed", "Failed", "Errors" });
+            result.Add(new List<string> { "Dates", "Passed", "Failed", "Errors","Id" });
             foreach (var item in act)
             {
-                dupa.Add(new List<string> { item.ActivationTime.ToString(), item.CounterPassed.ToString(), item.CounterFailed.ToString(), item.CounterErrors.ToString() });
+                result.Add(new List<string> { item.ActivationTime.ToString(), item.CounterPassed.ToString(), item.CounterFailed.ToString(), item.CounterErrors.ToString(), item.Id.ToString()});
             }
 
             
-            return Ok(dupa);
+            return Ok(result);
         }
 
         // PUT: api/Activations/5
