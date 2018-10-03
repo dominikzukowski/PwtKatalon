@@ -25,11 +25,9 @@ namespace PwtKatalonApi.Controllers
         [HttpGet]
         public IEnumerable<dynamic> GetSchedules()
         {
-            //return _context.Scheduller.OrderByDescending(s => s.DateFrom);
-
-            return _context.Scheduller.Include(u=>u.SendUser).Select(s=>new { s.Id, s.SendUser.Login, s.DateFrom, s.Repeats });
-
-            //return _context.Activations.Select(a => new { a.Id, a.Status ,a.ActivationTime, a.EnvironmentId, a.Version }).OrderByDescending(a=>a.ActivationTime);
+            return _context.Scheduller.Include(u=>u.SendUser).Select(s=>new {
+                s.Id, s.SendUser.Login, s.DateFrom, s.DateTo, s.ActivationHour, 
+                s.Repeats }).OrderByDescending(s => s.DateFrom);
         }
 
         // GET: api/Schedulers/5

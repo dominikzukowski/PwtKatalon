@@ -8,15 +8,19 @@
           <table class='table list' *ngIf='schedules && schedules.length'>
               <thead>
                   <tr>
-                      <th>DateFrom</th>
+                      <th>Date From</th>
+                      <th>Date To</th>
                       <th>Repeats</th>
+                      <th>Hour</th>
                       <th>User</th>
                   </tr>
               </thead>
               <tbody>
                   <tr *ngFor ='let schedule of schedules' (click)='openSchedulerDetails(schedule.id)'>
                       <td>{{schedule.dateFrom}}</td>
+                      <td>{{schedule.dateTo}}</td>
                       <td>{{schedule.repeats}}</td>
+                      <td>{{schedule.activationHour}}</td>
                       <td>{{schedule.login}}</td>
                   </tr>
               </tbody>
