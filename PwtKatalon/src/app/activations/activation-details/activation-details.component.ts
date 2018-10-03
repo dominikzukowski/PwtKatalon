@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IActivation } from '../activation';
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute } from '@angular/router'
 import { ActivationService } from '../activation.service';
-
+import { Location } from '@angular/common';
 
 @Component({
   templateUrl: './activation-details.component.html',
@@ -20,7 +20,7 @@ export class ActivationDetailsComponent implements OnInit {
   }]
 
   constructor(private route: ActivatedRoute,
-    private router: Router,
+    private location: Location,
     private service: ActivationService) {
   }
 
@@ -34,7 +34,7 @@ export class ActivationDetailsComponent implements OnInit {
   }
 
   onBack() {
-    this.router.navigate(['/activations'])
+    this.location.back();
   }
 
   getFile() {
