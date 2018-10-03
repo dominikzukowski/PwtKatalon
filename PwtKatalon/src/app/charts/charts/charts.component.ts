@@ -14,6 +14,7 @@ export class ChartsComponent implements OnInit {
   envinronments: string[];
   versions: string[];
   details: Array<Array<string>>;
+  coloredColumnIndex: number;
 
   public lineChartData: Array<any> = [];
   public lineChartLabels: Array<any>;
@@ -61,9 +62,6 @@ export class ChartsComponent implements OnInit {
     });
   }
 
-
-
-
   private getDetails(environment: string, version: string) {
     this.service.getDetails(environment, version).subscribe((res) => {
 
@@ -78,13 +76,12 @@ export class ChartsComponent implements OnInit {
       }
 
       this.lineChartLabels = arrayColumn(this.details.slice(1), 0);
-
     });
   }
 
   public chartClicked(e: any): void {
     try {
-      console.log(e.active[0]._index)
+      this.coloredColumnIndex = e.active[0]._index
     }
     catch (err) {
       console.log(err);
@@ -93,6 +90,20 @@ export class ChartsComponent implements OnInit {
 
   public chartHovered(e: any): void {
     console.log(e);
+  }
+
+  getColor(index, label) {
+    if (index == this.coloredColumnIndex) {
+      switch (label) {
+        case 'Passed':
+          return 'rgba(0, 150, 0, 0.2)';
+        case 'Failed':
+          return 'rgba(200, 0, 0, 0.2)';
+        case 'Errors':
+          return 'rgba(0, 0, 255, 0.2)';
+      }
+    }
+
   }
 
 }
