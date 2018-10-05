@@ -12,8 +12,6 @@ import { SchedulerDetailsComponent } from './scheduler/scheduler-details/schedul
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartsComponent } from './charts/charts/charts.component';
-import { PaginatorComponent } from './paginator/paginator.component';
-import { ActivationsPagedlistComponent } from './activations/activations-pagedlist/activations-pagedlist.component';
 
 @NgModule({
   declarations: [
@@ -23,8 +21,6 @@ import { ActivationsPagedlistComponent } from './activations/activations-pagedli
     SchedulerListComponent,
     SchedulerDetailsComponent,
     ChartsComponent,
-    PaginatorComponent,
-    ActivationsPagedlistComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +31,6 @@ import { ActivationsPagedlistComponent } from './activations/activations-pagedli
     NgbModule.forRoot(),
     RouterModule.forRoot([
       {path: 'activations', component: ActivationsListComponent},
-      {path: 'activationsPaged', component: ActivationsPagedlistComponent},
       {path: 'activation/:id', component: ActivationDetailsComponent},
       {path: 'scheduler', component:SchedulerListComponent},
       {path: 'scheduler/:id', component:SchedulerDetailsComponent},
