@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PwtKatalonApi.Models;
+using PwtKatalonApi.Utils.Paging;
 
 namespace PwtKatalonApi.Controllers
 {
@@ -15,17 +16,28 @@ namespace PwtKatalonApi.Controllers
     public class ActivationsController : Controller
     {
         private readonly pwtkatalonContext _context;
+        private readonly IUrlHelper _urlHelper;
 
-        public ActivationsController(pwtkatalonContext context)
+        public ActivationsController(pwtkatalonContext context, IUrlHelper urlHelper)
         {
             _context = context;
+            _urlHelper = urlHelper;
         }
 
-        // GET: api/Activations
-        [HttpGet]
-        public IEnumerable<dynamic> GetActivations()
+        // GET: api/Activations?PageNumber=1&PageSize=10
+        [HttpGet(Name= "GetActivations")]
+        public IActionResult GetActivations(PagingParams pagingParams)
         {
-            return _context.Activations.Select(a => new { a.Id, a.Status ,a.ActivationTime, a.EnvironmentId, a.Version }).OrderByDescending(a=>a.ActivationTime);
+            var query = _context.Activations.AsQueryable();
+            var model = new PagedList<Activations>(query, pagingParams.PageNumber, pagingParams.PageSize);
+
+            var output = new PagingOutputModel<Activations>
+            {
+                Paging = model.GetHeader(),
+                Links = GetLinks(model),
+                Items = model.List
+            };
+            return Ok(output);
         }
 
         // GET: api/Activations/5
@@ -113,7 +125,6 @@ namespace PwtKatalonApi.Controllers
                 result.Add(new List<string> { item.ActivationTime.ToString(), item.CounterPassed.ToString(), item.CounterFailed.ToString(), item.CounterErrors.ToString(), item.Id.ToString()});
             }
 
-            
             return Ok(result);
         }
 
@@ -194,5 +205,32 @@ namespace PwtKatalonApi.Controllers
         {
             return _context.Activations.Any(e => e.Id == id);
         }
+
+        private List<LinkInfo> GetLinks(PagedList<Activations> list)
+        {
+            var links = new List<LinkInfo>();
+
+            if (list.HasPreviousPage)
+                links.Add(CreateLink("GetActivations", list.PreviousPageNumber, list.PageSize, "previousPage", "GET"));
+
+            links.Add(CreateLink("GetActivations", list.PageNumber, list.PageSize, "self", "GET"));
+
+            if (list.HasNextPage)
+                links.Add(CreateLink("GetActivations", list.NextPageNumber, list.PageSize, "nextPage", "GET"));
+
+            return links;
+        }
+
+        private LinkInfo CreateLink(string routeName, int pageNumber, int pageSize, string rel, string method)
+        {
+            return new LinkInfo
+            {
+                Href = _urlHelper.Link(routeName,
+                            new { PageNumber = pageNumber, PageSize = pageSize }),
+                Rel = rel,
+                Method = method
+            };
+        }
+
     }
 }

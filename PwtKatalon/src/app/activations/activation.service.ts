@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { IActivation } from "./activation";
 import { catchError, tap} from "rxjs/operators";
-import { throwError } from "rxjs";
+import { throwError, Observable } from "rxjs";
 import { environment } from '../../environments/environment';
+import { Page, queryPaginated, IPagination } from "../pagination";
 
 @Injectable({
     providedIn: 'root'
@@ -12,6 +13,12 @@ export class ActivationService {
     constructor(private httpClient: HttpClient){
     }
 
+    
+  list(urlOrFilter?: string | object): Observable<Page<IActivation>> {
+    const apiUrl = `${environment.apiUrl}activations/`;
+    return queryPaginated<IActivation>(this.httpClient, apiUrl, urlOrFilter);
+  }
+
     getActivation(id: number) {
         const apiUrl = `${environment.apiUrl}activations/${id}`;
         let response$ = this.httpClient.get<IActivation>(apiUrl);
@@ -19,8 +26,18 @@ export class ActivationService {
     }
 
     getActivations() {
-        const apiUrl = `${environment.apiUrl}activations/`;
-        let response$ = this.httpClient.get<IActivation[]>(apiUrl).pipe(
+        const apiUrl = `${environment.apiUrl}activations`;
+
+        let myParams = new HttpParams({
+            fromObject: {
+                PageNumber:'2',
+                PageSize:'10',
+            }
+        })
+        //myParams.append('PageNumber','2')
+        //myParams.append('PageSize','10')
+
+        let response$ = this.httpClient.get<IPagination<IActivation>>(apiUrl, {params:myParams}).pipe(
             tap(data => console.log('All: ' + JSON.stringify(data))),
             catchError(this.handleError));
         return response$;
