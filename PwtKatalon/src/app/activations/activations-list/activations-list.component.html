@@ -27,41 +27,40 @@
                 </tbody>
             </table>
         </div>
-
         <div>
             <div class="container">
                 <div class="text-center">
-                        <span class="form-group pull-left form-inline">
-                                <select id="ddlPageSize" class="form-control control-color" [(ngModel)]="pageSize"
+                    <div class="form-group pull-left form-inline">
+                        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                            <li>
+                                <select class="form-control control-color" id="ddlPageSize" [(ngModel)]="pageSize"
                                     (change)="changePageSize($event.target.value)">
                                     <option value="5">5</option>
                                     <option value="10">10</option>
                                     <option value="25">25</option>
                                     <option value="50">50</option>
                                 </select>
-                            </span>
-
-
-                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-                        <li [ngClass]="{disabled:pager.currentPage === 1}">
-                                <a (click)="changePageNumber(1)">First</a>
-                        </li>
-                        <li [ngClass]="{disabled:pager.currentPage === 1}">
-                                <a (click)="changePageNumber(pager.currentPage - 1)">Previous</a>
-                        </li>
-                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-                                <a (click)="changePageNumber(page)">{{page}}</a>
-                        </li>
-                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-                                <a (click)="changePageNumber(pager.currentPage + 1)">Next</a>
-                        </li>
-                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-                                <a (click)="changePageNumber(pager.totalPages)">Last</a>
-                        </li>
-                    </ul>
+                            </li>
+                            <span style="vertical-align: middle"> of {{pager.totalItems}} records </span>
+                            <li class="page-item"  [ngClass]="{disabled:pager.currentPage === 1}">
+                                <a class="page-link" (click)="changePageNumber(1)">First</a>
+                            </li>
+                            <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+                                <a class="page-link" (click)="changePageNumber(pager.currentPage - 1)">Previous</a>
+                            </li>
+                            <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                <a class="page-link" (click)="changePageNumber(page)">{{page}}</a>
+                            </li>
+                            <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                <a class="page-link" (click)="changePageNumber(pager.currentPage + 1)">Next</a>
+                            </li>
+                            <li class="page-item"  [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                <a class="page-link" (click)="changePageNumber(pager.totalPages)">Last</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-        
     </div>
 </div>
