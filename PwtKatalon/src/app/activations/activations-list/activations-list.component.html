@@ -2,12 +2,12 @@
     <div class='card-header'>
         Report list {{errorMessage}}
     </div>
-   {{nextpage}}
     <div class="card-body">
         <div class='table-responsive'>
             <table class='table list' *ngIf='activations && activations.length'>
                 <thead>
                     <tr>
+                        <th>Id</th>
                         <th>Date</th>
                         <th>Time</th>
                         <th>Status</th>
@@ -16,7 +16,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor ='let activation of activations'  (click)='openActivationDetails(activation.id)'>
+                    <tr *ngFor='let activation of activations' (click)='openActivationDetails(activation.id)'>
+                        <td>{{activation.id}}</td>
                         <td>{{activation.activationTime| date:'dd-MM-yyyy'}}</td>
                         <td>{{activation.activationTime | date:'HH:mm:ss'}}</td>
                         <td>{{activation.status}}</td>
@@ -26,5 +27,41 @@
                 </tbody>
             </table>
         </div>
+
+        <div>
+            <div class="container">
+                <div class="text-center">
+                        <span class="form-group pull-left form-inline">
+                                <select id="ddlPageSize" class="form-control control-color" [(ngModel)]="pageSize"
+                                    (change)="changePageSize($event.target.value)">
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                </select>
+                            </span>
+
+
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                <a (click)="changePageNumber(1)">First</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                <a (click)="changePageNumber(pager.currentPage - 1)">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                <a (click)="changePageNumber(page)">{{page}}</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                <a (click)="changePageNumber(pager.currentPage + 1)">Next</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                <a (click)="changePageNumber(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </div>

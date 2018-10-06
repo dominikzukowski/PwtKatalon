@@ -12,6 +12,7 @@ import { SchedulerDetailsComponent } from './scheduler/scheduler-details/schedul
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartsComponent } from './charts/charts/charts.component';
+import { PagerService } from './pagination';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ChartsComponent } from './charts/charts/charts.component';
     SchedulerListComponent,
     SchedulerDetailsComponent,
     ChartsComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -30,16 +32,20 @@ import { ChartsComponent } from './charts/charts/charts.component';
     ReactiveFormsModule,
     NgbModule.forRoot(),
     RouterModule.forRoot([
-      {path: 'activations', component: ActivationsListComponent},
+      {path: 'activations', 
+      component: ActivationsListComponent, 
+      runGuardsAndResolvers: 'always'},
       {path: 'activation/:id', component: ActivationDetailsComponent},
       {path: 'scheduler', component:SchedulerListComponent},
       {path: 'scheduler/:id', component:SchedulerDetailsComponent},
       {path: 'charts', component:ChartsComponent},
       {path: '', redirectTo: 'activations', pathMatch: 'full'},
       {path: '**', redirectTo: 'activations', pathMatch: 'full'}
-    ]),
+    ], {onSameUrlNavigation: 'reload'}),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [PagerService],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
+
+

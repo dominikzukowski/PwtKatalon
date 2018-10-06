@@ -28,10 +28,12 @@ namespace PwtKatalonApi.Controllers
         [HttpGet(Name= "GetActivations")]
         public IActionResult GetActivations(PagingParams pagingParams)
         {
-            var query = _context.Activations.AsQueryable();
-            var model = new PagedList<Activations>(query, pagingParams.PageNumber, pagingParams.PageSize);
+            var query = _context.Activations.Select(a=> new ActivationsListModel{ Id = a.Id, ActivationTime = a.ActivationTime, EnvironmentId = a.EnvironmentId,
+                Status = a.Status,
+                Version = a.Version }).AsQueryable();
+            var model = new PagedList<ActivationsListModel>(query, pagingParams.PageNumber, pagingParams.PageSize);
 
-            var output = new PagingOutputModel<Activations>
+            var output = new PagingOutputModel<ActivationsListModel>
             {
                 Paging = model.GetHeader(),
                 Links = GetLinks(model),
@@ -206,7 +208,7 @@ namespace PwtKatalonApi.Controllers
             return _context.Activations.Any(e => e.Id == id);
         }
 
-        private List<LinkInfo> GetLinks(PagedList<Activations> list)
+        private List<LinkInfo> GetLinks(PagedList<ActivationsListModel> list)
         {
             var links = new List<LinkInfo>();
 

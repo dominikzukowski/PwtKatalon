@@ -10,8 +10,15 @@ namespace PwtKatalonApi.Utils.Paging
         public PagedList(IQueryable<T> source, int pageNumber, int pageSize)
         {
             this.TotalItems = source.Count();
-            this.PageNumber = pageNumber;
             this.PageSize = pageSize;
+
+            if (pageNumber > TotalPages)
+            {
+                pageNumber = TotalPages;
+            }
+
+            this.PageNumber = pageNumber;
+
             this.List = source
                             .Skip(pageSize * (pageNumber - 1))
                             .Take(pageSize)

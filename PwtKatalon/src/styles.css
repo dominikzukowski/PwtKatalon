@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "~font-awesome/css/font-awesome.min.css";
+@import "//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css";
 
 
 html,body{
@@ -17,6 +18,10 @@ div.card {
 
 .table {
   margin-top: 10px
+}
+
+a {
+  cursor: pointer;
 }
 
 table.list tbody tr:hover { 

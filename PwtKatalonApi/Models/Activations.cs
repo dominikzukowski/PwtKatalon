@@ -3,6 +3,15 @@ using System.Collections.Generic;
 
 namespace PwtKatalonApi.Models
 {
+    public class ActivationsListModel
+    {
+        public int Id { get; set; }
+        public DateTime ActivationTime { get; set; }
+        public string EnvironmentId { get; set; }
+        public string Status { get; set; }
+        public string Version { get; set; }
+    }
+
     public partial class Activations
     {
         public int Id { get; set; }
