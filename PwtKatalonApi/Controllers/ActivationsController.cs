@@ -52,7 +52,7 @@ namespace PwtKatalonApi.Controllers
             }
 
             var activations = await _context.Activations.Select(a => new
-                {a.Id,
+            { a.Id,
                 a.ActivationTime,
                 a.SchedulerId,
                 a.SendUserId,
@@ -70,7 +70,8 @@ namespace PwtKatalonApi.Controllers
                 a.CounterPassed,
                 a.CounterFailed,
                 a.CounterErrors,
-                a.CounterSeconds
+                a.CounterSeconds,
+                isZippedResults = a.ZippedResults == null ? false : true
             }).SingleOrDefaultAsync(m => m.Id == id);
 
             if (activations == null)

@@ -29,7 +29,7 @@
             <div class="col-4">Status</div>
             <div class="col-8">{{activation.status}}</div>
           </div>
-          <div class="row border-bottom">
+          <div class="row border-bottom" *ngIf="activation.isZippedResults">
             <div class="col-4">Report</div>
             <div class="col-8">
               <button class='btn btn-outline-secondary btn-sm' (click)="getFile()" value="Download File">

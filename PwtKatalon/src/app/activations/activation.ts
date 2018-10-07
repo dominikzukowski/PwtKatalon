@@ -22,4 +22,5 @@ export interface IActivation {
     counterFailed: number;
     counterErrors: number;
     counterSeconds: number;
+    isZippedResults: boolean;
 }
