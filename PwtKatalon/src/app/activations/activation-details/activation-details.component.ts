@@ -12,11 +12,11 @@ export class ActivationDetailsComponent implements OnInit {
   activation: IActivation;
   errorMessage: any;
   passed: any;
-  public chartLabels: string[] = ['Passed', 'Failed'];
+  public chartLabels: string[] = ['Passed', 'Failed', 'Error'];
   public chartData: number[];
   public chartType: string = 'pie';
   public chartColors: any[] = [{
-    backgroundColor: ["#008000", "#FF0000"]
+    backgroundColor: ["#008000", "#FF0000", "rgba(0, 0, 255, 1)"]
   }]
 
   constructor(private route: ActivatedRoute,
@@ -29,7 +29,7 @@ export class ActivationDetailsComponent implements OnInit {
 
     this.service.getActivation(id).subscribe((res: IActivation) => {
       this.activation = res;
-      this.chartData = [this.activation.counterPassed, this.activation.counterFailed];
+      this.chartData = [this.activation.counterPassed, this.activation.counterFailed, this.activation.counterErrors];
     });
   }
 
