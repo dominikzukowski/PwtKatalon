@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivationService } from '../../activations/activation.service';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { chartColors } from '../../chartcolors';
 
 @Component({
   selector: 'app-charts',
@@ -26,16 +27,16 @@ export class ChartsComponent implements OnInit {
   public lineChartType: string = 'line';
 
   public lineChartColors: Array<any> = [{
-    backgroundColor: 'rgba(0, 150, 0, 0.2)',
-    borderColor: 'rgba(0, 150, 0, 1)',
+    backgroundColor: chartColors.passedColorTransparent,
+    borderColor: chartColors.passedColor,
   },
   {
-    backgroundColor: 'rgba(200, 0, 0, 0.2)',
-    borderColor: 'rgba(200, 0, 0, 1)'
+    backgroundColor: chartColors.failedColorTransaprent,
+    borderColor:  chartColors.failedColor,
   },
   {
-    backgroundColor: 'rgba(0, 0, 255, 0.2)',
-    borderColor: 'rgba(0, 0, 255, 1)'
+    backgroundColor: chartColors.errorColorTransparent,
+    borderColor: chartColors.errorColor
   }
   ];
 
@@ -96,11 +97,11 @@ export class ChartsComponent implements OnInit {
     if (index == this.coloredColumnIndex) {
       switch (label) {
         case 'Passed':
-          return 'rgba(0, 150, 0, 0.2)';
+          return chartColors.passedColorTransparent;
         case 'Failed':
-          return 'rgba(200, 0, 0, 0.2)';
+          return chartColors.failedColorTransaprent;
         case 'Errors':
-          return 'rgba(0, 0, 255, 0.2)';
+          return chartColors.errorColorTransparent;
       }
     }
 

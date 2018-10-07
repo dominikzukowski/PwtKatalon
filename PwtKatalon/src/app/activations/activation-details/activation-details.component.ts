@@ -3,6 +3,7 @@ import { IActivation } from '../activation';
 import { ActivatedRoute } from '@angular/router'
 import { ActivationService } from '../activation.service';
 import { Location } from '@angular/common';
+import { chartColors } from '../../chartcolors';
 
 @Component({
   templateUrl: './activation-details.component.html',
@@ -16,7 +17,7 @@ export class ActivationDetailsComponent implements OnInit {
   public chartData: number[];
   public chartType: string = 'pie';
   public chartColors: any[] = [{
-    backgroundColor: ["#008000", "#FF0000", "rgba(0, 0, 255, 1)"]
+    backgroundColor: [chartColors.passedColor, chartColors.failedColor, chartColors.errorColor]
   }]
 
   constructor(private route: ActivatedRoute,
