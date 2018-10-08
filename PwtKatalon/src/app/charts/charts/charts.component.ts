@@ -21,7 +21,12 @@ export class ChartsComponent implements OnInit {
   public lineChartLabels: Array<any>;
 
   public lineChartOptions: any = {
-    responsive: true
+    responsive: true,
+    elements: {
+      line: {
+          tension: 0, // disables bezier curves
+      }
+    }
   };
   public lineChartLegend: boolean = true;
   public lineChartType: string = 'line';
