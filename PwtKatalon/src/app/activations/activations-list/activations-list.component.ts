@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IActivation } from '../activation';
 import { ActivationService } from '../activation.service';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
@@ -9,30 +9,17 @@ import { PagerService, IPagingInfo } from '../../pagination';
   styleUrls: ['./activations-list.component.css']
 })
 
-export class ActivationsListComponent implements OnInit, OnDestroy {
+export class ActivationsListComponent implements OnInit {
   activations: IActivation[];
   errorMessage: any;
 
   pageNumber: string;
   pageSize: string;
 
-  navigationSubscription;
   pager: any = {};
 
   constructor(private service: ActivationService, private router: Router, private activatedRoute: ActivatedRoute, private pagerService: PagerService) {
-    this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      // If it is a NavigationEnd event re-initalise the component
-      if (e instanceof NavigationEnd) {
-        this.populateActivations();
-      }
-    });
-    this.activations = [];
-  }
-
-  ngOnDestroy() {
-    if (this.navigationSubscription) {
-      this.navigationSubscription.unsubscribe();
-    }
+       this.activations = [];
   }
 
   ngOnInit() {
@@ -49,14 +36,10 @@ export class ActivationsListComponent implements OnInit, OnDestroy {
 
   changePageNumber(pageNumber: string) {
     this.openPage(pageNumber, this.pageSize);
-    console.log(pageNumber);
-    console.log(this.pageSize);
   }
 
   changePageSize(pageSize: string) {
     this.openPage(this.pageNumber, pageSize);
-    console.log(this.pageNumber);
-    console.log(pageSize);
   }
 
   populateActivations() {
