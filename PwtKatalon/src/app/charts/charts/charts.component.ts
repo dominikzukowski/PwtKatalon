@@ -53,12 +53,12 @@ export class ChartsComponent implements OnInit {
 
   openActivationDetails(e: any) {
     console.log(this.details[e + 1][4]);
-    this.router.navigate(['/activation', this.details[e + 1][4]]);
+    this.router.navigate(['/activations', this.details[e + 1][4]]);
   }
 
   ngOnInit() {
     this.service.getVersions().subscribe((res) => {
-      this.versions = res;
+      this.versions = res.reverse();
       this.versionDrop.setValue(this.versions[0]);
       this.service.getEnvironments().subscribe((res) => {
         this.envinronments = res

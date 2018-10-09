@@ -2,8 +2,6 @@
   <div class='card-header'>
     Report details
   </div>
-
-
   <div class='card-body' *ngIf='!activation'>Loading...</div>
   <div class='card-body' *ngIf='activation'>
     <div class='container'>
@@ -19,7 +17,7 @@
           </div>
           <div class="row border-bottom">
             <div class="col-4">Activation Time</div>
-            <div class="col-8">{{activation.activationTime}}</div>
+            <div class="col-8">{{activation.activationTime | date:'yyyy-MM-dd hh:mm:ss'}}</div>
           </div>
           <div class="row border-bottom">
             <div class="col-4">Environment</div>
@@ -33,7 +31,7 @@
             <div class="col-4">Report</div>
             <div class="col-8">
               <button class='btn btn-outline-secondary btn-sm' (click)="getFile()" value="Download File">
-              <i class="fa fa-download" aria-hidden="true"> Download</i>
+                <i class="fa fa-download" aria-hidden="true"> Download</i>
               </button>
             </div>
           </div>
@@ -54,10 +52,9 @@
             <div class="col-8">{{activation.counterErrors}}</div>
           </div>
           <div class="row border-bottom">
-            <div class="col-4">Counter Seconds</div>
-            <div class="col-8">{{activation.counterSeconds}}</div>
+            <div class="col-4">Execution time</div>
+            <div class="col-8">{{activation.counterSeconds | secondsToDate }}</div>
           </div>
-
           <div class="row border-bottom">
             <div class="col-4">Scheduler ID</div>
             <div class="col-8">{{activation.schedulerID}}</div>
@@ -114,10 +111,6 @@
             <div class="col-4">Junit Result</div>
             <div class="col-8">{{activation.junitResult}}</div>
           </div>
-
-
-
-
         </div>
         <div class="col-sm">
           <canvas baseChart [data]="chartData" [labels]="chartLabels" [chartType]="chartType" [colors]="chartColors"

@@ -30,7 +30,7 @@ namespace PwtKatalonApi.Controllers
         {
             var query = _context.Activations.Select(a=> new ActivationsListModel{ Id = a.Id, ActivationTime = a.ActivationTime, EnvironmentId = a.EnvironmentId,
                 Status = a.Status,
-                Version = a.Version }).AsQueryable();
+                Version = a.Version }).OrderByDescending(a=>a.ActivationTime).AsQueryable();
             var model = new PagedList<ActivationsListModel>(query, pagingParams.PageNumber, pagingParams.PageSize);
 
             var output = new PagingOutputModel<ActivationsListModel>

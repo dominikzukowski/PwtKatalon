@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IActivation } from '../activation';
 import { ActivationService } from '../activation.service';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { PagerService, IPagingInfo } from '../../pagination';
 
 @Component({
@@ -56,6 +56,6 @@ export class ActivationsListComponent implements OnInit {
   }
 
   openActivationDetails(id: number) {
-    this.router.navigate(['/activation', id]);
+    this.router.navigate(['/activations', id]);
   }
 }

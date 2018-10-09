@@ -13,6 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartsComponent } from './charts/charts/charts.component';
 import { PagerService } from './pagination';
+import { SecondsToDatePipe } from './shared/secondsToDate.pipe';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { PagerService } from './pagination';
     SchedulerListComponent,
     SchedulerDetailsComponent,
     ChartsComponent,
-
+    SecondsToDatePipe,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +36,7 @@ import { PagerService } from './pagination';
       {path: 'activations', 
       component: ActivationsListComponent, 
       runGuardsAndResolvers: 'always'},
-      {path: 'activation/:id', component: ActivationDetailsComponent},
+      {path: 'activations/:id', component: ActivationDetailsComponent},
       {path: 'scheduler', component:SchedulerListComponent},
       {path: 'scheduler/:id', component:SchedulerDetailsComponent},
       {path: 'charts', component:ChartsComponent},
