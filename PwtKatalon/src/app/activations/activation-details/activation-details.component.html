@@ -1,118 +1,102 @@
 <div class='card'>
   <div class='card-header'>
-    Report details
+    Activation details
   </div>
   <div class='card-body' *ngIf='!activation'>Loading...</div>
   <div class='card-body' *ngIf='activation'>
-    <div class='container'>
+    <div class='container-fluid'>
       <div class="row">
-        <div class="col-sm">
+        <div class="col-8">
           <div class="row border-bottom">
-            <div class="col-4">Id</div>
-            <div class="col-8">{{activation.id}}</div>
+            <div class="col-3">Id</div>
+            <div class="col-9">{{activation.id}}</div>
           </div>
           <div class="row border-bottom">
-            <div class="col-4">Version</div>
-            <div class="col-8">{{activation.version}}</div>
+            <div class="col-3">Version</div>
+            <div class="col-9">{{activation.version}}</div>
           </div>
           <div class="row border-bottom">
-            <div class="col-4">Activation Time</div>
-            <div class="col-8">{{activation.activationTime | date:'yyyy-MM-dd hh:mm:ss'}}</div>
+            <div class="col-3">Activation Time</div>
+            <div class="col-9">{{activation.activationTime | date:'yyyy-MM-dd hh:mm:ss'}}</div>
           </div>
           <div class="row border-bottom">
-            <div class="col-4">Environment</div>
+            <div class="col-3">Environment</div>
             <div class="col-8">{{activation.environmentId}}</div>
           </div>
           <div class="row border-bottom">
-            <div class="col-4">Status</div>
-            <div class="col-8">{{activation.status}}</div>
+            <div class="col-3">Status</div>
+            <div class="col-9">{{activation.status}}</div>
           </div>
           <div class="row border-bottom" *ngIf="activation.isZippedResults">
-            <div class="col-4">Report</div>
-            <div class="col-8">
+            <div class="col-3">Report</div>
+            <div class="col-9">
               <button class='btn btn-outline-secondary btn-sm' (click)="getFile()" value="Download File">
                 <i class="fa fa-download" aria-hidden="true"> Download</i>
               </button>
             </div>
           </div>
           <div class="row border-bottom">
-            <div class="col-4">Total tests</div>
-            <div class="col-8">{{activation.counterTotal}}</div>
+            <div class="col-3">Total tests</div>
+            <div class="col-9">{{activation.counterTotal}}</div>
           </div>
           <div class="row border-bottom">
-            <div class="col-4">Passed</div>
-            <div class="col-8">{{activation.counterPassed}}</div>
+            <div class="col-3">Passed</div>
+            <div class="col-9">{{activation.counterPassed}}</div>
           </div>
           <div class="row border-bottom">
-            <div class="col-4">Failed</div>
-            <div class="col-8">{{activation.counterFailed}}</div>
+            <div class="col-3">Failed</div>
+            <div class="col-9">{{activation.counterFailed}}</div>
           </div>
           <div class="row border-bottom">
-            <div class="col-4">Errors</div>
-            <div class="col-8">{{activation.counterErrors}}</div>
+            <div class="col-3">Errors</div>
+            <div class="col-9">{{activation.counterErrors}}</div>
           </div>
           <div class="row border-bottom">
-            <div class="col-4">Execution time</div>
-            <div class="col-8">{{activation.counterSeconds | secondsToDate }}</div>
+            <div class="col-3">Execution time</div>
+            <div class="col-9">{{activation.counterSeconds | secondsToDate }}</div>
           </div>
           <div class="row border-bottom">
-            <div class="col-4">Scheduler ID</div>
-            <div class="col-8">{{activation.schedulerID}}</div>
+            <div class="col-3">Send User Login</div>
+            <div class="col-9">{{activation.sendUserLogin}}</div>
           </div>
           <div class="row border-bottom">
-            <div class="col-4">Send User ID</div>
-            <div class="col-8">{{activation.sendUserID}}</div>
+              <div class="col-3">Send User Organization</div>
+              <div class="col-9">{{activation.sendUserOrganization}}</div>
+            </div>
+          <div class="row border-bottom">
+            <div class="col-3">Comment</div>
+            <div class="col-9">{{activation.comment}}</div>
           </div>
           <div class="row border-bottom">
-            <div class="col-4">Receive UserID</div>
-            <div class="col-8">{{activation.receiveUserID}}</div>
+            <div class="col-3">Test Suite</div>
+            <div class="col-9">{{activation.testSuite}}</div>
           </div>
           <div class="row border-bottom">
-            <div class="col-4">Comment</div>
-            <div class="col-8">{{activation.comment}}</div>
+            <div class="col-3">Report Name</div>
+            <div class="col-9">{{activation.reportName}}</div>
           </div>
           <div class="row border-bottom">
-            <div class="col-4">Test Suite</div>
-            <div class="col-8">{{activation.testSuite}}</div>
+            <div class="col-3">Console Log</div>
+            <div class="col-9">
+                <a class='btn btn-outline-secondary btn-sm' [routerLink]="['/activations']">Open Console Log</a>
+            </div>
           </div>
           <div class="row border-bottom">
-            <div class="col-4">Report Name</div>
-            <div class="col-8">{{activation.reportName}}</div>
+            <div class="col-3">Error Log</div>
+            <div class="col-9">
+              <a class='btn btn-outline-secondary btn-sm' [routerLink]="['/activations']">Open Error Log</a>
+            </div>
           </div>
           <div class="row border-bottom">
-            <div class="col-4">Console Log</div>
-            <div class="col-8">{{activation.consoleLog}}</div>
+            <div class="col-3">Git Log</div>
+            <div class="col-9">{{activation.gitLog}}</div>
           </div>
           <div class="row border-bottom">
-            <div class="col-4">Test Suite</div>
-            <div class="col-8">{{activation.testSuite}}</div>
-          </div>
-          <div class="row border-bottom">
-            <div class="col-4">Console Log</div>
-            <div class="col-8">{{activation.consoleLog}}</div>
-          </div>
-          <div class="row border-bottom">
-            <div class="col-4">Error Log</div>
-            <div class="col-8">{{activation.errorLog}}</div>
-          </div>
-          <div class="row border-bottom">
-            <div class="col-4">Git Log</div>
-            <div class="col-8">{{activation.gitLog}}</div>
-          </div>
-          <div class="row border-bottom">
-            <div class="col-4">Run Arguments</div>
-            <div class="col-8">{{activation.runArguments}}</div>
-          </div>
-          <div class="row border-bottom">
-            <div class="col-4">Json Result</div>
-            <div class="col-8">{{activation.jsonResult}}</div>
-          </div>
-          <div class="row border-bottom">
-            <div class="col-4">Junit Result</div>
-            <div class="col-8">{{activation.junitResult}}</div>
+            <div class="col-3">Run Arguments</div>
+            <div class="col-9">{{activation.runArguments}}</div>
           </div>
         </div>
-        <div class="col-sm">
+        <div class="col-4">
           <canvas baseChart [data]="chartData" [labels]="chartLabels" [chartType]="chartType" [colors]="chartColors"
             (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
         </div>

@@ -7,7 +7,6 @@ namespace PwtKatalonApi.Models
     {
         public Organization()
         {
-            CustomerNew = new HashSet<CustomerNew>();
             User = new HashSet<User>();
         }
 
@@ -19,7 +18,6 @@ namespace PwtKatalonApi.Models
         public string Tags { get; set; }
 
         public Environment Environment { get; set; }
-        public ICollection<CustomerNew> CustomerNew { get; set; }
         public ICollection<User> User { get; set; }
     }
 }

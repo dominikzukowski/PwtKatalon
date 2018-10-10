@@ -1,9 +1,8 @@
 export interface IActivation {
     id:	number;
     activationTime:	Date;
-    schedulerID: number;
-    sendUserID: number;
-    receiveUserID: number;
+    sendUserLogin: string;
+    sendUserOrganization: string;
     comment: string;
     testSuite: string;
     reportName: string;
