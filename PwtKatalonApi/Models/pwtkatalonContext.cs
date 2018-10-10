@@ -21,15 +21,21 @@ namespace PwtKatalonApi.Models
         public virtual DbSet<Environment> Environment { get; set; }
         public virtual DbSet<Organization> Organization { get; set; }
         public virtual DbSet<ReferenceNumber> ReferenceNumber { get; set; }
-        public virtual DbSet<Scheduller> Scheduller { get; set; }
         public virtual DbSet<User> User { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=QMNACMS8266\\SQL2014;Database=pwtkatalon;User ID=katalon_user;Password=katalon_pass;");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Activations>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("id");
-
                 entity.Property(e => e.ActivationTime)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
@@ -45,8 +51,6 @@ namespace PwtKatalonApi.Models
                     .IsUnicode(false)
                     .HasDefaultValueSql("('')");
 
-                entity.Property(e => e.ReceiveUserId).HasColumnName("ReceiveUserID");
-
                 entity.Property(e => e.ReportName)
                     .IsRequired()
                     .HasMaxLength(250)
@@ -56,8 +60,6 @@ namespace PwtKatalonApi.Models
                     .IsRequired()
                     .HasMaxLength(1500)
                     .HasDefaultValueSql("('')");
-
-                entity.Property(e => e.SchedulerId).HasColumnName("SchedulerID");
 
                 entity.Property(e => e.SendUserId).HasColumnName("SendUserID");
 
@@ -77,6 +79,11 @@ namespace PwtKatalonApi.Models
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasDefaultValueSql("('')");
+
+                entity.HasOne(d => d.SendUser)
+                    .WithMany(p => p.Activations)
+                    .HasForeignKey(d => d.SendUserId)
+                    .HasConstraintName("FK_Activations_User");
             });
 
             modelBuilder.Entity<Agencies>(entity =>
@@ -343,12 +350,6 @@ namespace PwtKatalonApi.Models
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasDefaultValueSql("('')");
-
-                entity.HasOne(d => d.Organization)
-                    .WithMany(p => p.CustomerNew)
-                    .HasForeignKey(d => new { d.EnvironmentId, d.OrganizationId })
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_customer_new_Organization");
             });
 
             modelBuilder.Entity<Environment>(entity =>
@@ -473,41 +474,6 @@ namespace PwtKatalonApi.Models
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasDefaultValueSql("('')");
-            });
-
-            modelBuilder.Entity<Scheduller>(entity =>
-            {
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.AlternativeTestSuite)
-                    .IsRequired()
-                    .HasMaxLength(200)
-                    .HasDefaultValueSql("('')");
-
-                entity.Property(e => e.Comment)
-                    .IsRequired()
-                    .HasMaxLength(500)
-                    .HasDefaultValueSql("('')");
-
-                entity.Property(e => e.DateFrom)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.DateTo)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(dateadd(day,(2),getdate()))");
-
-                entity.Property(e => e.Repeats).HasDefaultValueSql("((-1))");
-
-                entity.HasOne(d => d.ReceiveUser)
-                    .WithMany(p => p.SchedullerReceiveUser)
-                    .HasForeignKey(d => d.ReceiveUserId)
-                    .HasConstraintName("FK_Scheduller_User1");
-
-                entity.HasOne(d => d.SendUser)
-                    .WithMany(p => p.SchedullerSendUser)
-                    .HasForeignKey(d => d.SendUserId)
-                    .HasConstraintName("FK_Scheduller_User");
             });
 
             modelBuilder.Entity<User>(entity =>

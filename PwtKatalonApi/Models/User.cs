@@ -7,8 +7,7 @@ namespace PwtKatalonApi.Models
     {
         public User()
         {
-            SchedullerReceiveUser = new HashSet<Scheduller>();
-            SchedullerSendUser = new HashSet<Scheduller>();
+            Activations = new HashSet<Activations>();
         }
 
         public int Id { get; set; }
@@ -20,12 +19,12 @@ namespace PwtKatalonApi.Models
         public DateTime SetupDate { get; set; }
         public string AgencySend { get; set; }
         public string AgencyReceive { get; set; }
+        public short SchedullerReady { get; set; }
 
         public Agencies Agencies { get; set; }
         public Agencies AgenciesNavigation { get; set; }
         public Environment Environment { get; set; }
         public Organization Organization { get; set; }
-        public ICollection<Scheduller> SchedullerReceiveUser { get; set; }
-        public ICollection<Scheduller> SchedullerSendUser { get; set; }
+        public ICollection<Activations> Activations { get; set; }
     }
 }

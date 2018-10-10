@@ -42,7 +42,5 @@ namespace PwtKatalonApi.Models
         public string EnvironmentId { get; set; }
         public string OrganizationId { get; set; }
         public int Id { get; set; }
-
-        public Organization Organization { get; set; }
     }
 }

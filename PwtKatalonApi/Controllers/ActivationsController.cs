@@ -51,12 +51,11 @@ namespace PwtKatalonApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var activations = await _context.Activations.Select(a => new
+            var activations = await _context.Activations.Include(u => u.SendUser).Select(a => new
             { a.Id,
                 a.ActivationTime,
-                a.SchedulerId,
-                a.SendUserId,
-                a.ReceiveUserId,
+                SendUserLogin = a.SendUser.Login,
+                SendUserOrganization = a.SendUser.Organization.OrganizationName,
                 a.Comment,
                 a.TestSuite,
                 a.ReportName,
@@ -64,13 +63,12 @@ namespace PwtKatalonApi.Controllers
                 a.RunArguments,
                 a.EnvironmentId,
                 a.Version,
-                //a.JunitResult,
-                //a.JsonResult,
                 a.CounterTotal,
                 a.CounterPassed,
                 a.CounterFailed,
                 a.CounterErrors,
                 a.CounterSeconds,
+                a.GitLog,
                 isZippedResults = a.ZippedResults == null ? false : true
             }).SingleOrDefaultAsync(m => m.Id == id);
 

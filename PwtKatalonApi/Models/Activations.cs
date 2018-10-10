@@ -3,22 +3,11 @@ using System.Collections.Generic;
 
 namespace PwtKatalonApi.Models
 {
-    public class ActivationsListModel
-    {
-        public int Id { get; set; }
-        public DateTime ActivationTime { get; set; }
-        public string EnvironmentId { get; set; }
-        public string Status { get; set; }
-        public string Version { get; set; }
-    }
-
     public partial class Activations
     {
         public int Id { get; set; }
         public DateTime ActivationTime { get; set; }
-        public int SchedulerId { get; set; }
         public int? SendUserId { get; set; }
-        public int? ReceiveUserId { get; set; }
         public string Comment { get; set; }
         public string TestSuite { get; set; }
         public string ReportName { get; set; }
@@ -37,5 +26,7 @@ namespace PwtKatalonApi.Models
         public byte? CounterFailed { get; set; }
         public byte? CounterErrors { get; set; }
         public int? CounterSeconds { get; set; }
+
+        public User SendUser { get; set; }
     }
 }
