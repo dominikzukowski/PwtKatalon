@@ -16,7 +16,6 @@ export class ChartsComponent implements OnInit {
   versions: string[];
   details: Array<Array<string>>;
   coloredColumnIndex: number;
-
   public lineChartData: Array<any> = [];
   public lineChartLabels: Array<any>;
 
@@ -85,9 +84,15 @@ export class ChartsComponent implements OnInit {
     });
   }
 
-  public chartClicked(e: any): void {
+  public chartClicked(e: any, table: any): void {
     try {
-      this.coloredColumnIndex = e.active[0]._index
+      let index = e.active[0]._index
+
+      this.coloredColumnIndex = index
+      let column = table.rows[0].cells[index];
+    
+      column.scrollIntoView();
+
     }
     catch (err) {
       console.log(err);
