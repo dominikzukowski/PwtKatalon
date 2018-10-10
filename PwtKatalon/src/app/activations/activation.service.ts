@@ -70,6 +70,15 @@ export class ActivationService {
         return response$;
     }
 
+    getActivationErrorLog(id: number) {
+        const apiUrl = `${environment.apiUrl}activations/${id}/errorlog`;
+        let response$ = this.httpClient.get<IActivation>(apiUrl).pipe(
+            tap(data => console.log('All: ' + JSON.stringify(data))),
+            catchError(this.handleError));
+
+        return response$;
+    }
+
     private handleError(err:HttpErrorResponse) {
         let errorMessage = '';
         if (err.error instanceof ErrorEvent) {

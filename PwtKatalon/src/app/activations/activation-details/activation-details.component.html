@@ -30,7 +30,7 @@
           <div class="row border-bottom" *ngIf="activation.isZippedResults">
             <div class="col-3">Report</div>
             <div class="col-9">
-              <button class='btn btn-outline-secondary btn-sm' (click)="getFile()" value="Download File">
+              <button class='btn btn-outline-secondary btn-sm'  style ="width:30%" (click)="getFile()" value="Download File">
                 <i class="fa fa-download" aria-hidden="true"> Download</i>
               </button>
             </div>
@@ -78,13 +78,14 @@
           <div class="row border-bottom">
             <div class="col-3">Console Log</div>
             <div class="col-9">
-                <a class='btn btn-outline-secondary btn-sm' [routerLink]="['/activations']">Open Console Log</a>
+                <a class='btn btn-outline-secondary btn-sm' style ="width:30%" [routerLink]="['/activations']">Open Console Log</a>
             </div>
           </div>
           <div class="row border-bottom">
             <div class="col-3">Error Log</div>
             <div class="col-9">
-              <a class='btn btn-outline-secondary btn-sm' [routerLink]="['/activations']">Open Error Log</a>
+              <a class='btn btn-outline-secondary btn-sm' style ="width:30%" [routerLink]="['/activations', activation.id, 'errorlog']">Open Error Log</a>
+              <!-- "['/activations', activation.id, 'errorlog']" -->
             </div>
           </div>
           <div class="row border-bottom">

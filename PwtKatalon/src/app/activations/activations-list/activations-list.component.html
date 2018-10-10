@@ -7,12 +7,12 @@
             <table class='table list' *ngIf='activations && activations.length'>
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Status</th>
-                        <th>Environment</th>
-                        <th>Version</th>
+                        <th style="width: 15%">Id</th>
+                        <th style="width: 15%">Date</th>
+                        <th style="width: 15%">Time</th>
+                        <th style="width: 25%">Status</th>
+                        <th style="width: 15%">Environment</th>
+                        <th style="width: 15">Version</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,7 +58,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-2">
+                <div class="col-2 text-right">
                     <p>Total records: {{pager.totalItems}}</p>
                 </div>
             </div>

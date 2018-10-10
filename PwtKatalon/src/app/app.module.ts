@@ -14,12 +14,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartsComponent } from './charts/charts/charts.component';
 import { PagerService } from './pagination';
 import { SecondsToDatePipe } from './shared/secondsToDate.pipe';
+import { ActivationDetailsErrorLogComponent } from './activations/activation-details/activation-details-errorlog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ActivationsListComponent,
     ActivationDetailsComponent,
+    ActivationDetailsErrorLogComponent,
     SchedulerListComponent,
     SchedulerDetailsComponent,
     ChartsComponent,
@@ -37,6 +39,7 @@ import { SecondsToDatePipe } from './shared/secondsToDate.pipe';
       component: ActivationsListComponent, 
       runGuardsAndResolvers: 'always'},
       {path: 'activations/:id', component: ActivationDetailsComponent},
+      {path: 'activations/:id/errorlog', component: ActivationDetailsErrorLogComponent, pathMatch: 'full'},
       {path: 'scheduler', component:SchedulerListComponent},
       {path: 'scheduler/:id', component:SchedulerDetailsComponent},
       {path: 'charts', component:ChartsComponent},
