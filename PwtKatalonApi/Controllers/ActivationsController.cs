@@ -12,7 +12,7 @@ using PwtKatalonApi.Utils.Paging;
 namespace PwtKatalonApi.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Activations")]
+    [Route("Activations")]
     public class ActivationsController : Controller
     {
         private readonly pwtkatalonContext _context;
