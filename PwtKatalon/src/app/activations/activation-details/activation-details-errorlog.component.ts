@@ -9,6 +9,7 @@ import { Location } from '@angular/common';
 })
 export class ActivationDetailsErrorLogComponent implements OnInit {
   activation: IActivation;
+  id: number;
   errorMessage: any;
 
   constructor(private route: ActivatedRoute,
@@ -17,9 +18,9 @@ export class ActivationDetailsErrorLogComponent implements OnInit {
   }
 
   ngOnInit() {
-    let id = +this.route.snapshot.paramMap.get('id')
+    this.id = +this.route.snapshot.paramMap.get('id')
 
-    this.service.getActivationErrorLog(id).subscribe((res: IActivation) => {
+    this.service.getActivationErrorLog(this.id).subscribe((res: IActivation) => {
       this.activation = res;
 
     });
@@ -27,5 +28,9 @@ export class ActivationDetailsErrorLogComponent implements OnInit {
 
   onBack() {
     this.location.back();
+  }
+
+  scroll(e:any) {  
+     e.scrollIntoView();
   }
 }

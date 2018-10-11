@@ -46,7 +46,7 @@ export class ActivationDetailsComponent implements OnInit {
   downLoadFile(data: any) {
     var blob = new Blob([data], { type: 'application/zip' });
     var anchor = document.createElement('a');
-    anchor.download = `report_${this.activation.id}.zip`;
+    anchor.download = `${this.activation.reportName}.zip`;
     anchor.href = window.URL.createObjectURL(blob);
     anchor.click();
   }

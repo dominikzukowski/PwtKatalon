@@ -71,7 +71,7 @@ export class ActivationService {
     }
 
     getActivationErrorLog(id: number) {
-        const apiUrl = `${environment.apiUrl}activations/${id}/errorlog`;
+        const apiUrl = `${environment.apiUrl}activations/${id}/logs`;
         let response$ = this.httpClient.get<IActivation>(apiUrl).pipe(
             tap(data => console.log('All: ' + JSON.stringify(data))),
             catchError(this.handleError));

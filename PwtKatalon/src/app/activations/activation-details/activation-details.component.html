@@ -27,12 +27,18 @@
             <div class="col-3">Status</div>
             <div class="col-9">{{activation.status}}</div>
           </div>
-          <div class="row border-bottom" *ngIf="activation.isZippedResults">
-            <div class="col-3">Report</div>
-            <div class="col-9">
-              <button class='btn btn-outline-secondary btn-sm'  style ="width:30%" (click)="getFile()" value="Download File">
-                <i class="fa fa-download" aria-hidden="true"> Download</i>
-              </button>
+          <div *ngIf="activation.isZippedResults">
+            <div class="row border-bottom">
+              <div class="col-3">Report Name</div>
+              <div class="col-9">{{activation.reportName}}</div>
+            </div>
+            <div class="row border-bottom">
+              <div class="col-3">Report</div>
+              <div class="col-9">
+                <button class='btn btn-outline-secondary btn-sm' style="width:30%" (click)="getFile()" value="Download File">
+                  <i class="fa fa-download" aria-hidden="true"> Download</i>
+                </button>
+              </div>
             </div>
           </div>
           <div class="row border-bottom">
@@ -60,9 +66,9 @@
             <div class="col-9">{{activation.sendUserLogin}}</div>
           </div>
           <div class="row border-bottom">
-              <div class="col-3">Send User Organization</div>
-              <div class="col-9">{{activation.sendUserOrganization}}</div>
-            </div>
+            <div class="col-3">Send User Organization</div>
+            <div class="col-9">{{activation.sendUserOrganization}}</div>
+          </div>
           <div class="row border-bottom">
             <div class="col-3">Comment</div>
             <div class="col-9">{{activation.comment}}</div>
@@ -72,25 +78,17 @@
             <div class="col-9">{{activation.testSuite}}</div>
           </div>
           <div class="row border-bottom">
-            <div class="col-3">Report Name</div>
-            <div class="col-9">{{activation.reportName}}</div>
-          </div>
-          <div class="row border-bottom">
-            <div class="col-3">Console Log</div>
+            <div class="col-3">Error/Console Log</div>
             <div class="col-9">
-                <a class='btn btn-outline-secondary btn-sm' style ="width:30%" [routerLink]="['/activations']">Open Console Log</a>
+              <a class='btn btn-outline-secondary btn-sm' style="width:30%" [routerLink]="['/activations', activation.id, 'errorlog']">
+                <i class="fa fa-chevron-right"></i> Open Logs</a>
             </div>
           </div>
-          <div class="row border-bottom">
-            <div class="col-3">Error Log</div>
-            <div class="col-9">
-              <a class='btn btn-outline-secondary btn-sm' style ="width:30%" [routerLink]="['/activations', activation.id, 'errorlog']">Open Error Log</a>
-              <!-- "['/activations', activation.id, 'errorlog']" -->
-            </div>
-          </div>
-          <div class="row border-bottom">
+          <div class="row border-bottom ">
             <div class="col-3">Git Log</div>
-            <div class="col-9">{{activation.gitLog}}</div>
+            <div class="col-9 table-responsive">
+              <p style="white-space: pre;">{{activation.gitLog}}</p>
+            </div>
           </div>
           <div class="row border-bottom">
             <div class="col-3">Run Arguments</div>
