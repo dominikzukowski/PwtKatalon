@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ChartsModule } from 'ng2-charts';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 import { AppComponent } from './app.component';
 import { ActivationsListComponent } from './activations/activations-list/activations-list.component';
@@ -32,6 +33,7 @@ import { ActivationDetailsErrorLogComponent } from './activations/activation-det
     HttpClientModule,
     FormsModule,
     ChartsModule,
+    Ng4LoadingSpinnerModule.forRoot(),
     ReactiveFormsModule,
     NgbModule.forRoot(),
     RouterModule.forRoot([

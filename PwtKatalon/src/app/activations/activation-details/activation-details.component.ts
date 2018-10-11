@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router'
 import { ActivationService } from '../activation.service';
 import { Location } from '@angular/common';
 import { chartColors } from '../../chartcolors';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 @Component({
   templateUrl: './activation-details.component.html',
@@ -22,12 +23,12 @@ export class ActivationDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private location: Location,
-    private service: ActivationService) {
+    private service: ActivationService,
+    private spinnerService: Ng4LoadingSpinnerService) {
   }
 
   ngOnInit() {
     let id = +this.route.snapshot.paramMap.get('id')
-
     this.service.getActivation(id).subscribe((res: IActivation) => {
       this.activation = res;
       this.chartData = [this.activation.counterPassed, this.activation.counterFailed, this.activation.counterErrors];
@@ -39,9 +40,14 @@ export class ActivationDetailsComponent implements OnInit {
   }
 
   getFile() {
-    this.service.getReport(this.activation.id).subscribe(respData => 
-      this.downLoadFile(respData)
-    )};
+    this.spinnerService.show();
+    this.service.getReport(this.activation.id).subscribe(respData => {
+      
+      this.downLoadFile(respData);
+      this.spinnerService.hide();
+     })
+    
+  };
 
   downLoadFile(data: any) {
     var blob = new Blob([data], { type: 'application/zip' });
