@@ -1,10 +1,12 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { IActivation } from "./activation";
+import { IActivation } from "../models/activation";
 import { catchError, tap} from "rxjs/operators";
 import { throwError, Observable } from "rxjs";
-import { environment } from '../../environments/environment';
-import { IPagination } from "../pagination";
+import { environment } from "src/environments/environment";
+import { IPagination } from "../shared/pagination";
+
+
 
 @Injectable({
     providedIn: 'root'

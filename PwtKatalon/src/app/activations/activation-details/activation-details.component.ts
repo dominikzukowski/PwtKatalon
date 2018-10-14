@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { IActivation } from '../activation';
+import { IActivation } from '../../models/activation';
 import { ActivatedRoute } from '@angular/router'
-import { ActivationService } from '../activation.service';
+import { ActivationService } from '../../services/activation.service';
 import { Location } from '@angular/common';
-import { chartColors } from '../../chartcolors';
+import { chartColors } from '../../shared/chartcolors';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 @Component({

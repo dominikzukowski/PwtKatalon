@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivationService } from '../../activations/activation.service';
+import { ActivationService } from '../../services/activation.service';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { chartColors } from '../../chartcolors';
+import { chartColors } from '../../shared/chartcolors';
 
 @Component({
   selector: 'app-charts',

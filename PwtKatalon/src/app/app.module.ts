@@ -13,8 +13,8 @@ import { SchedulerDetailsComponent } from './scheduler/scheduler-details/schedul
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartsComponent } from './charts/charts/charts.component';
-import { PagerService } from './pagination';
-import { SecondsToDatePipe } from './shared/secondsToDate.pipe';
+import { PagerService } from './shared/pagination';
+import { SecondsToDatePipe } from './shared/pipes/secondsToDate.pipe';
 import { ActivationDetailsErrorLogComponent } from './activations/activation-details/activation-details-errorlog.component';
 
 @NgModule({
