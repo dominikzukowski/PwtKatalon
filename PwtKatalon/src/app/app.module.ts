@@ -6,13 +6,13 @@ import { ChartsModule } from 'ng2-charts';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ChartsComponent } from './charts/charts/charts.component';
+import { ChartComponent } from './chart/chart/chart.component';
 import { ActivationsModule } from './activations/activations.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChartsComponent,
+    ChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -22,7 +22,7 @@ import { ActivationsModule } from './activations/activations.module';
     ChartsModule,
     NgbModule.forRoot(),
     RouterModule.forRoot([
-      {path: 'charts', component:ChartsComponent},
+      {path: 'charts', component:ChartComponent},
       {path: '', redirectTo: 'activations', pathMatch: 'full'},
       {path: '**', redirectTo: 'activations', pathMatch: 'full'}
     ], {onSameUrlNavigation: 'reload'}),

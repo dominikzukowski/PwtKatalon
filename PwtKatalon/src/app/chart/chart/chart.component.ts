@@ -6,10 +6,10 @@ import { chartColors } from '../../shared/chartcolors';
 
 @Component({
   selector: 'app-charts',
-  templateUrl: './charts.component.html',
-  styleUrls: ['./charts.component.css']
+  templateUrl: './chart.component.html',
+  styleUrls: ['./chart.component.css']
 })
-export class ChartsComponent implements OnInit {
+export class ChartComponent implements OnInit {
   versionDrop = new FormControl('');
   environmentDrop = new FormControl('');
   envinronments: string[];
