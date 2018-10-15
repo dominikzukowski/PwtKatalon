@@ -28,9 +28,12 @@ namespace PwtKatalonApi.Controllers
         [HttpGet(Name= "GetActivations")]
         public IActionResult GetActivations(PagingParams pagingParams)
         {
-            var query = _context.Activations.Select(a=> new ActivationsListModel{ Id = a.Id, ActivationTime = a.ActivationTime, EnvironmentId = a.EnvironmentId,
+            var query = _context.Activations.Select(a => new ActivationsListModel { Id = a.Id, ActivationTime = a.ActivationTime, EnvironmentId = a.EnvironmentId,
                 Status = a.Status,
-                Version = a.Version }).OrderByDescending(a=>a.ActivationTime).AsQueryable();
+                Version = a.Version,
+                Comment = a.Comment,
+                Organization = a.SendUser.Organization.OrganizationName
+            }).OrderByDescending(a=>a.ActivationTime).AsQueryable();
             var model = new PagedList<ActivationsListModel>(query, pagingParams.PageNumber, pagingParams.PageSize);
 
             var output = new PagingOutputModel<ActivationsListModel>

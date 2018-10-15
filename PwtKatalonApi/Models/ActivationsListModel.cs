@@ -12,6 +12,8 @@ namespace PwtKatalonApi.Models
         public string EnvironmentId { get; set; }
         public string Status { get; set; }
         public string Version { get; set; }
+        public string Organization { get; set; }
+        public string Comment { get; set; }
     }
 
 }

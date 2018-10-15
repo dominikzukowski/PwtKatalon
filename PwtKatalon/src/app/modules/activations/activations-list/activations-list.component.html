@@ -7,12 +7,14 @@
             <table class='table list' *ngIf='activations && activations.length'>
                 <thead>
                     <tr>
-                        <th style="width: 15%">Id</th>
-                        <th style="width: 15%">Date</th>
-                        <th style="width: 15%">Time</th>
-                        <th style="width: 25%">Status</th>
-                        <th style="width: 15%">Environment</th>
-                        <th style="width: 15">Version</th>
+                        <th>Id</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Comment</th>
+                        <th>Organization</th>
+                        <th>Status</th>
+                        <th>Environment</th>
+                        <th>Version</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -20,6 +22,8 @@
                         <td>{{activation.id}}</td>
                         <td>{{activation.activationTime| date:'dd-MM-yyyy'}}</td>
                         <td>{{activation.activationTime | date:'HH:mm:ss'}}</td>
+                        <td>{{activation.comment}}</td>
+                        <td>{{activation.organization}}</td>
                         <td>{{activation.status}}</td>
                         <td>{{activation.environmentId}}</td>
                         <td>{{activation.version}}</td>
