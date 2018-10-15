@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse} from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpParams} from "@angular/common/http";
 import { throwError, Observable } from "rxjs";
 import { environment } from "../../environments/environment";
 import { tap, catchError } from "rxjs/operators";
@@ -10,9 +10,11 @@ export class ApiService {
     private httpClient: HttpClient
   ) { }
 
-  get<T>(action: string, options: any = "") {
+  get<T>(action: string, myParams: HttpParams = new HttpParams(),  myResponseType: any=null) {
     const apiUrl = `${environment.apiUrl}${action}`;
-    let response$ = this.httpClient.get<T>(apiUrl, options).pipe(
+    let response$ = this.httpClient.get<T>(apiUrl, {
+      params: myParams,
+      responseType: myResponseType}).pipe(
       tap(data => console.log('All: ' + JSON.stringify(data))),
       catchError(this.handleError));
     return response$;

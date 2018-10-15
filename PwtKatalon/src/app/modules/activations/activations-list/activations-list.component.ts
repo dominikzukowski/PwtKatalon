@@ -47,7 +47,7 @@ export class ActivationsListComponent implements OnInit {
 
   populateActivations() {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.pageNumber = params['PageNumber'];
+      this.pageNumber = params['PageNumber'] ? params['PageNumber'] : "1" ;
       this.pageSize = params['PageSize'] ? params['PageSize'] : "10";
 
       this.service.getActivations(this.pageNumber, this.pageSize).subscribe((res) => {
