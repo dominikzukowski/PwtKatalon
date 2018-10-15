@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ActivationsModule } from './activations/activations.module';
-import { ChartModule } from './chart/chart.module';
+import { ChartModule } from './modules/chart/chart.module';
 
 @NgModule({
   declarations: [
