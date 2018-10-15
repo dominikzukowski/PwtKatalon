@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IUser } from '../../../models/user';
 import { UserService } from '../../../services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { PagerService, IPagingInfo, IPagination } from '../../../shared/pagination';
+import { PagerService, IPagingInfo } from '../../../shared/pagination';
 
 @Component({
   templateUrl: './users-list.component.html',
@@ -31,7 +31,23 @@ export class UsersListComponent implements OnInit {
   setPage(paging: IPagingInfo) {
     this.pager = this.pagerService.getPager(paging);
   }
+
+  openPage(pageNumber: string, pageSize: string) {
+    this.router.navigate(['/users'], { queryParams: { PageNumber: pageNumber, PageSize: pageSize } });
+  }
+
+  changePageNumber(pageNumber: string) {
+    this.openPage(pageNumber, this.pageSize);
+  }
+
+  changePageSize(pageSize: string) {
+    this.openPage(this.pageNumber, pageSize);
+  }
   
+  openUserDetails(id: number) {
+    this.router.navigate(['/users', id]);
+  }
+
   populateUsers(){
     this.activatedRoute.queryParams.subscribe(params => {
       this.pageNumber = params['PageNumber'];

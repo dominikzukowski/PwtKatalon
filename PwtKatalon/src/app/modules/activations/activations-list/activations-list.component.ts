@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IActivation } from '../../../models/activation';
 import { ActivationService } from 'src/app/services/activation.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { PagerService, IPagingInfo, IPagination } from '../../../shared/pagination';
+import { PagerService, IPagingInfo } from '../../../shared/pagination';
 
 @Component({
   templateUrl: './activations-list.component.html',
