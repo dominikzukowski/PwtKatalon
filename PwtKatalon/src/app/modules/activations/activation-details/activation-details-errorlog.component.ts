@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { IActivation } from '../../models/activation';
+import { IActivation } from '../../../models/activation';
 import { ActivatedRoute } from '@angular/router'
-import { ActivationService } from '../../services/activation.service';
+import { ActivationService } from '../../../services/activation.service';
 import { Location } from '@angular/common';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 

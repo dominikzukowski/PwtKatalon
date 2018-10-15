@@ -5,8 +5,8 @@ import { ActivationDetailsComponent } from './activation-details/activation-deta
 import { ActivationDetailsErrorLogComponent } from './activation-details/activation-details-errorlog.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { SecondsToDatePipe } from '../shared/pipes/secondsToDate.pipe';
-import { PagerService } from '../shared/pagination';
+import { SecondsToDatePipe } from '../../shared/pipes/secondsToDate.pipe';
+import { PagerService } from '../../shared/pagination';
 import { ChartsModule } from 'ng2-charts';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
