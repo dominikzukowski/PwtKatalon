@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ActivationsModule } from './modules/activations/activations.module';
 import { ChartModule } from './modules/chart/chart.module';
 import { UsersModule } from './modules/users/users.module';
+import { ApiService } from './services/api.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { UsersModule } from './modules/users/users.module';
     ChartModule,
     UsersModule,
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
