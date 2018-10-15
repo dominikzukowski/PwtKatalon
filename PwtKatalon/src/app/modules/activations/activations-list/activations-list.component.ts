@@ -18,7 +18,10 @@ export class ActivationsListComponent implements OnInit {
 
   pager: any = {};
 
-  constructor(private service: ActivationService, private router: Router, private activatedRoute: ActivatedRoute, private pagerService: PagerService) {
+  constructor(private service: ActivationService, 
+    private router: Router, 
+    private activatedRoute: ActivatedRoute, 
+    private pagerService: PagerService) {
        this.activations = [];
   }
 
