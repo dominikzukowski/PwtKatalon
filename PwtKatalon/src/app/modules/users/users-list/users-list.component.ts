@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IUser } from '../../../models/user';
 import { UserService } from '../../../services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { PagerService, IPagingInfo } from '../../../shared/pagination';
+import { PagerService, IPagingInfo, IPagination } from '../../../shared/pagination';
 
 @Component({
   templateUrl: './users-list.component.html',
@@ -37,7 +37,7 @@ export class UsersListComponent implements OnInit {
       this.pageNumber = params['PageNumber'];
       this.pageSize = params['PageSize'] ? params['PageSize'] : "10";
 
-      this.service.getUsers(this.pageNumber, this.pageSize).subscribe((res) => {
+      this.service.getUsers(this.pageNumber, this.pageSize).subscribe((res:IPagination<IUser>) => {
       this.users = res.items;
         this.setPage(res.paging);
       });
