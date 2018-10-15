@@ -29,7 +29,7 @@ export class ActivationDetailsComponent implements OnInit {
 
   ngOnInit() {
     let id = +this.route.snapshot.paramMap.get('id')
-    this.service.getActivation(id).subscribe((res: IActivation) => {
+    this.service.getActivation(id).subscribe((res) => {
       this.activation = res;
       this.chartData = [this.activation.counterPassed, this.activation.counterFailed, this.activation.counterErrors];
     });

@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpParams } from '@angular/common/http';
 import { ApiService } from "./api.service";
+import { IPagination } from "../shared/pagination";
+import { IUser } from "../models/user";
 
 @Injectable({
     providedIn: 'root'
@@ -20,6 +22,6 @@ export class UserService {
             }
         })
 
-        return this.apiService.get(action, myParams);
+        return this.apiService.get<IPagination<IUser>>(action, myParams);
     }
 }

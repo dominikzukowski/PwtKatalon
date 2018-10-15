@@ -37,7 +37,7 @@ export class UsersListComponent implements OnInit {
       this.pageNumber = params['PageNumber'];
       this.pageSize = params['PageSize'] ? params['PageSize'] : "10";
 
-      this.service.getUsers(this.pageNumber, this.pageSize).subscribe((res:IPagination<IUser>) => {
+      this.service.getUsers(this.pageNumber, this.pageSize).subscribe((res) => {
       this.users = res.items;
         this.setPage(res.paging);
       });

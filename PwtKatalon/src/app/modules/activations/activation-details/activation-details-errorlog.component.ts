@@ -22,7 +22,7 @@ export class ActivationDetailsErrorLogComponent implements OnInit {
   ngOnInit() {
     this.spinnerService.show();
     this.id = +this.route.snapshot.paramMap.get('id')
-    this.service.getActivationErrorLog(this.id).subscribe((res: IActivation) => {
+    this.service.getActivationErrorLog(this.id).subscribe((res) => {
       this.activation = res;
       this.spinnerService.hide();
     });

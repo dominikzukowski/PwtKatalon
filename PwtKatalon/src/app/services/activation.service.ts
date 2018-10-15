@@ -1,10 +1,8 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { IActivation } from "../models/activation";
-import { catchError, tap} from "rxjs/operators";
-import { throwError, Observable } from "rxjs";
-import { environment } from "src/environments/environment";
 import { IPagination } from "../shared/pagination";
+import { ApiService } from "./api.service";
 
 
 
@@ -12,17 +10,16 @@ import { IPagination } from "../shared/pagination";
     providedIn: 'root'
 })
 export class ActivationService {
-    constructor(private httpClient: HttpClient){
+    constructor(private httpClient: HttpClient, private apiService: ApiService){
     }
 
     getActivation(id: number) {
-        const apiUrl = `${environment.apiUrl}activations/${id}`;
-        let response$ = this.httpClient.get<IActivation>(apiUrl);
-        return response$;
+        const action = `activations/${id}`;
+        return this.apiService.get<IActivation>(action);
     }
 
     getActivations(pageNumber:string, pageSize:string) {
-        const apiUrl = `${environment.apiUrl}activations`;
+        const action = `activations`;
 
         let myParams = new HttpParams({
             fromObject: {
@@ -31,64 +28,35 @@ export class ActivationService {
             }
         })
 
-        let response$ = this.httpClient.get<IPagination<IActivation>>(apiUrl, {params:myParams}).pipe(
-            tap(data => console.log('All: ' + JSON.stringify(data))),
-            catchError(this.handleError));
+        let response$ = this.apiService.get<IPagination<IActivation>>(action, {params: myParams});
         return response$;
     }
 
     getReport(id: number){
-        const apiUrl = `${environment.apiUrl}activations/${id}/report`;
-        let response$ = this.httpClient.get(apiUrl, {responseType: 'arraybuffer'}).pipe(
-            tap(data => console.log('All: ' + JSON.stringify(data))),
-            catchError(this.handleError));
-        return response$;
+        const action = `activations/${id}/report`;
+        return this.apiService.get(action,{responseType:'arraybuffer'} );
     }
 
     getVersions()
     {
-        const apiUrl = `${environment.apiUrl}activations/versions`;
-        let response$ = this.httpClient.get<string[]>(apiUrl).pipe(
-            tap(data => console.log('All: ' + JSON.stringify(data))),
-            catchError(this.handleError));
-        return response$;
+        const action = `activations/versions`;
+        return this.apiService.get(action);
     }
 
     getEnvironments()
     {
-        const apiUrl = `${environment.apiUrl}activations/environments`;
-        let response$ = this.httpClient.get<string[]>(apiUrl).pipe(
-            tap(data => console.log('All: ' + JSON.stringify(data))),
-            catchError(this.handleError));
-        return response$;
+        const action = `activations/environments`;
+        return this.apiService.get(action);
     }
 
     getDetails(environmentId:string, version:string)
     {
-        const apiUrl = `${environment.apiUrl}activations/details/${environmentId}/${version}`;
-        let response$ = this.httpClient.get<Array<Array<string>>>(apiUrl).pipe(
-            tap(data => console.log('All: ' + JSON.stringify(data))),
-            catchError(this.handleError));
-        return response$;
+        const action = `activations/details/${environmentId}/${version}`;
+        return this.apiService.get(action);
     }
 
     getActivationErrorLog(id: number) {
-        const apiUrl = `${environment.apiUrl}activations/${id}/logs`;
-        let response$ = this.httpClient.get<IActivation>(apiUrl).pipe(
-            tap(data => console.log('All: ' + JSON.stringify(data))),
-            catchError(this.handleError));
-
-        return response$;
-    }
-
-    private handleError(err:HttpErrorResponse) {
-        let errorMessage = '';
-        if (err.error instanceof ErrorEvent) {
-            errorMessage= `An error occurred: ${err.error.message}`;
-        } else {
-            errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
-        }
-        console.error(errorMessage);
-        return throwError(errorMessage);
-    }
+        const action = `activations/${id}/logs`;
+        return this.apiService.get(action);
+   }
 }
