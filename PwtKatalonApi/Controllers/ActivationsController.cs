@@ -32,8 +32,13 @@ namespace PwtKatalonApi.Controllers
                 Status = a.Status,
                 Version = a.Version,
                 Comment = a.Comment,
-                Organization = a.SendUser.Organization.OrganizationName
-            }).OrderByDescending(a=>a.ActivationTime).AsQueryable();
+                CounterPassed = a.CounterPassed ?? 0,
+                CounterTotal = a.CounterTotal ?? 0,
+                CounterFailed = a.CounterFailed ?? 0,
+                CounterErrors = a.CounterErrors ?? 0,
+                Organization = a.SendUser.Organization.OrganizationName,
+                SendUserLogin = a.SendUser.Login,
+            }).OrderByDescending(a=>a.Id).AsQueryable();
             var model = new PagedList<ActivationsListModel>(query, pagingParams.PageNumber, pagingParams.PageSize);
 
             var output = new PagingOutputModel<ActivationsListModel>

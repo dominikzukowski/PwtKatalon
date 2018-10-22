@@ -14,6 +14,13 @@ namespace PwtKatalonApi.Models
         public string Version { get; set; }
         public string Organization { get; set; }
         public string Comment { get; set; }
+        public byte? CounterTotal { get; set; }
+        public byte? CounterPassed { get; set; }
+        public byte? CounterFailed { get; set; }
+        public byte? CounterErrors { get; set; }
+        public string SendUserLogin { get; set; }
+
+
     }
 
 }

@@ -6,24 +6,30 @@
                     <tr>
                         <th>Id</th>
                         <th>Date</th>
-                        <th>Time</th>
                         <th>Comment</th>
+                        <th>User</th>
                         <th>Organization</th>
                         <th>Status</th>
                         <th>Environment</th>
                         <th>Version</th>
+                        <th>Passed</th>
+                        <th>Failed</th>
+                        <th>Errors</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor='let activation of activations' (click)='openActivationDetails(activation.id)'>
                         <td>{{activation.id}}</td>
-                        <td>{{activation.activationTime| date:'dd-MM-yyyy'}}</td>
-                        <td>{{activation.activationTime | date:'HH:mm:ss'}}</td>
+                        <td>{{activation.activationTime | date:'dd-MM-yyyy HH:mm:ss'}}</td>
                         <td>{{activation.comment}}</td>
+                        <td>{{activation.sendUserLogin}}</td>
                         <td>{{activation.organization}}</td>
                         <td>{{activation.status}}</td>
                         <td>{{activation.environmentId}}</td>
                         <td>{{activation.version}}</td>
+                        <td>{{activation.counterPassed}} </td>
+                        <td>{{activation.counterFailed}} </td>
+                        <td>{{activation.counterErrors}}</td>
                     </tr>
                 </tbody>
             </table>
