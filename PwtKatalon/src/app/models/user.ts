@@ -9,4 +9,5 @@ export interface IUser {
     agencySend: string;
     agencyReceive: string;
     schedullerReady: number;
+    organizationName: string;
 }

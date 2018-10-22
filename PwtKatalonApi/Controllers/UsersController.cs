@@ -25,10 +25,11 @@ namespace PwtKatalonApi.Controllers
         [HttpGet]
         public IActionResult GetUser(PagingParams pagingParams)
         {
-            var query = _context.User.OrderByDescending(u=>u.SetupDate).AsQueryable();
-            var model = new PagedList<User>(query, pagingParams.PageNumber, pagingParams.PageSize);
+            var query = _context.User.Select(u=> new UserListModel {Id = u.Id, Login = u.Login, EnvironmentId = u.EnvironmentId, OrganizationName = u.Organization.OrganizationName, SetupDate = u.SetupDate })
+                                        .OrderByDescending(u=>u.SetupDate).AsQueryable();
+            var model = new PagedList<UserListModel>(query, pagingParams.PageNumber, pagingParams.PageSize);
 
-            var output = new PagingOutputModel<User>
+            var output = new PagingOutputModel<UserListModel>
             {
                 Paging = model.GetHeader(),
                 Links = null,

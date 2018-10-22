@@ -4,16 +4,18 @@
             <table class='table list' *ngIf='users && users.length'>
                 <thead>
                     <tr>
-                        <th style="width: 15%">Id</th>
-                        <th style="width: 15%">Login</th>
-                        <th style="width: 15%">Envinronment</th>
+                        <th>Id</th>
+                        <th>Login</th>
+                        <th>Environment</th>
+                        <th>Organization</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor='let user of users' (click)='openUserDetails(user.id)'>
                         <td>{{user.id}}</td>
                         <td>{{user.login}}</td>
-                        <td>{{user.envinronmentId}}</td>
+                        <td>{{user.environmentId}}</td>
+                        <td>{{user.organizationName}}</td>
                     </tr>
                 </tbody>
             </table>
