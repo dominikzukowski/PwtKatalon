@@ -27,6 +27,16 @@ table.list tbody tr:hover {
   background: #e5e5e5; 
   cursor: pointer;
 }
+
+tr.green {
+  background: #4CAF50;
+}
+
+tr.orange {
+   background: #ffa602;
+}
+
+
 table.list thead {
   color: #4CAF50
 }
