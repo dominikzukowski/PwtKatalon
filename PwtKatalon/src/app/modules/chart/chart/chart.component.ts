@@ -47,7 +47,7 @@ export class ChartComponent implements OnInit {
   constructor(private service: ActivationService, private router: Router) { }
 
   refreshChart() {
-    this.getDetails(this.environmentDrop.value, this.versionDrop.value);
+    this.getDetails(this.environmentDrop.value.trim(), this.versionDrop.value.trim());
   }
 
   openActivationDetails(e: any) {
