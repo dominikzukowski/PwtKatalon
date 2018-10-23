@@ -4,6 +4,9 @@ import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { chartColors } from '../../../shared/chartcolors';
 
+const ACTIVATION_ID_INDEX: number = 4;
+const ACTIVATION_LABEL_INDEX: number = 0;
+
 @Component({
   selector: 'app-charts',
   templateUrl: './chart.component.html',
@@ -46,15 +49,6 @@ export class ChartComponent implements OnInit {
 
   constructor(private service: ActivationService, private router: Router) { }
 
-  refreshChart() {
-    this.getDetails(this.environmentDrop.value.trim(), this.versionDrop.value.trim());
-  }
-
-  openActivationDetails(e: any) {
-    console.log(this.details[e + 1][4]);
-    this.router.navigate(['/activations', this.details[e + 1][4]]);
-  }
-
   ngOnInit() {
     this.service.getVersions().subscribe((res) => {
       this.versions = res.reverse();
@@ -67,6 +61,10 @@ export class ChartComponent implements OnInit {
     });
   }
 
+  refreshChart() {
+    this.getDetails(this.environmentDrop.value.trim(), this.versionDrop.value.trim());
+  }
+
   private getDetails(environment: string, version: string) {
     this.service.getDetails(environment, version).subscribe((res) => {
 
@@ -77,30 +75,26 @@ export class ChartComponent implements OnInit {
       const arrayColumn = (arr, n) => arr.map(x => x[n]);
 
       for (let i = 1; i <= 3; i++) {
-        this.lineChartData.push({ data: this.details.slice(1).map(x => x[i]), label: this.details[0][i] });
+        this.lineChartData.push({ data: this.details.slice(1).map(x => x[i]), label: this.details[ACTIVATION_LABEL_INDEX][i] });
       }
 
       this.lineChartLabels = arrayColumn(this.details.slice(1), 0);
     });
   }
 
-  public chartClicked(e: any, table: any): void {
+  public chartClicked(clickedChartColumn: any, table: any): void {
     try {
-      let index = e.active[0]._index
+      let index = clickedChartColumn.active[0]._index
 
       this.coloredColumnIndex = index
-      let column = table.rows[0].cells[index];
+      let tableColumn = table.rows[0].cells[index];
     
-      column.scrollIntoView();
+      tableColumn.scrollIntoView();
 
     }
     catch (err) {
       console.log(err);
     }
-  }
-
-  public chartHovered(e: any): void {
-    console.log(e);
   }
 
   getColor(index, label) {
@@ -114,7 +108,11 @@ export class ChartComponent implements OnInit {
           return chartColors.errorColorTransparent;
       }
     }
+  }
 
+  openActivationDetails(index: any) {
+    console.log(this.details[index][ACTIVATION_ID_INDEX]);
+    this.router.navigate(['/activations', this.details[index][ACTIVATION_ID_INDEX]]);
   }
 
 }

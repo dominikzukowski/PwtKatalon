@@ -26,7 +26,7 @@
       <div class="col-8">
         <div style="display: block">
           <canvas *ngIf='lineChartData.length>0' baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [legend]="lineChartLegend"
-            [colors]="lineChartColors" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event, table)">
+            [colors]="lineChartColors" [chartType]="lineChartType" (chartClick)="chartClicked($event, table)">
           </canvas>
         </div>
       </div>
@@ -38,7 +38,7 @@
             <th  *ngFor="let label of lineChartLabels">{{label}}</th>
           </tr>
           <tr *ngFor="let d of lineChartData">
-            <td [ngStyle]="{'background':getColor(j,d.label)}" *ngFor="let label of lineChartLabels; let j=index" (click)='openActivationDetails(j)'>{{d && d.data[j]}}</td>
+            <td [ngStyle]="{'background':getColor(j,d.label)}" *ngFor="let label of lineChartLabels; let j=index" (click)='openActivationDetails(j+1)'>{{d && d.data[j]}}</td>
           </tr>
         </table>
       </div>
