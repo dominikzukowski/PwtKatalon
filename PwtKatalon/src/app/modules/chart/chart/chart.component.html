@@ -40,6 +40,9 @@
           <tr *ngFor="let d of lineChartData">
             <td [ngStyle]="{'background':getColor(j,d.label)}" *ngFor="let label of lineChartLabels; let j=index" (click)='openActivationDetails(j+1)'>{{d && d.data[j]}}</td>
           </tr>
+          <tr>
+            <td *ngFor="let user of lineTableActivationUsers; let j=index" (click)='openActivationDetails(j+1)'>{{user}}</td>
+          </tr>
         </table>
       </div>
     </div>

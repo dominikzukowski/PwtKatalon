@@ -6,6 +6,7 @@ import { chartColors } from '../../../shared/chartcolors';
 
 const ACTIVATION_ID_INDEX: number = 4;
 const ACTIVATION_LABEL_INDEX: number = 0;
+const ACTIVATION_USER_INDEX: number =5;
 
 @Component({
   selector: 'app-charts',
@@ -21,6 +22,7 @@ export class ChartComponent implements OnInit {
   coloredColumnIndex: number;
   public lineChartData: Array<any> = [];
   public lineChartLabels: Array<any>;
+  public lineTableActivationUsers: Array<any>;
 
   public lineChartOptions: any = {
     responsive: true,
@@ -79,6 +81,7 @@ export class ChartComponent implements OnInit {
       }
 
       this.lineChartLabels = arrayColumn(this.details.slice(1), 0);
+      this.lineTableActivationUsers = arrayColumn(this.details.slice(1), ACTIVATION_USER_INDEX);
     });
   }
 
@@ -111,7 +114,6 @@ export class ChartComponent implements OnInit {
   }
 
   openActivationDetails(index: any) {
-    console.log(this.details[index][ACTIVATION_ID_INDEX]);
     this.router.navigate(['/activations', this.details[index][ACTIVATION_ID_INDEX]]);
   }
 
