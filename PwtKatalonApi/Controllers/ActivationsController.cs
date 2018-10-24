@@ -136,18 +136,28 @@ namespace PwtKatalonApi.Controllers
                 a.CounterErrors,
                 a.EnvironmentId,
                 a.Version,
-                a.Id
+                a.Id,
+                a.SendUser.Login
             })
                 .Where(a => a.EnvironmentId == environment && a.Version == version).ToList();
             var result = new List<List<string>>();
 
-            result.Add(new List<string> { "Dates", "Passed", "Failed", "Errors","Id" });
+            result.Add(new List<string> { "Dates", "Passed", "Failed", "Errors","Id", "User" });
             foreach (var item in act)
             {
-                result.Add(new List<string> { item.ActivationTime.ToString(), item.CounterPassed.ToString(), item.CounterFailed.ToString(), item.CounterErrors.ToString(), item.Id.ToString()});
+                result.Add(new List<string> { item.ActivationTime.ToString(),
+                    GetCounterValue(item.CounterPassed),
+                    GetCounterValue(item.CounterFailed),
+                    GetCounterValue(item.CounterErrors),
+                     item.Id.ToString(), item.Login});
             }
 
             return Ok(result);
+        }
+
+        private string GetCounterValue(byte? counterValue)
+        {
+            return counterValue == null ? "0" : counterValue.ToString();
         }
 
         // PUT: api/Activations/5
