@@ -9,6 +9,7 @@ import { SecondsToDatePipe } from '../../shared/pipes/secondsToDate.pipe';
 import { PagerService } from '../../shared/pagination';
 import { ChartsModule } from 'ng2-charts';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+import { ActivationDetailsConsolelogComponent } from './activation-details/activation-details-consolelog.component';
 
 @NgModule({
   imports: [
@@ -21,13 +22,15 @@ import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
       component: ActivationsListComponent, 
       runGuardsAndResolvers: 'always'},
       {path: 'activations/:id', component: ActivationDetailsComponent},
-      {path: 'activations/:id/errorlog', component: ActivationDetailsErrorLogComponent, pathMatch: 'full'}
+      {path: 'activations/:id/errorlog', component: ActivationDetailsErrorLogComponent, pathMatch: 'full'},
+      {path: 'activations/:id/consolelog', component: ActivationDetailsConsolelogComponent, pathMatch: 'full'}
       ])
   ],
   declarations: [
     ActivationsListComponent,
     ActivationDetailsComponent,
     ActivationDetailsErrorLogComponent,
+    ActivationDetailsConsolelogComponent,
     SecondsToDatePipe
   ],
   providers: [PagerService]

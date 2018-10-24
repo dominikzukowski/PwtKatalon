@@ -12,7 +12,7 @@ import { tap, catchError } from "rxjs/operators";
     providedIn: 'root'
 })
 export class ActivationService {
-    constructor(private httpClient: HttpClient, private apiService: ApiService){
+    constructor(private httpClient: HttpClient, private apiService: ApiService) {
     }
 
     getActivation(id: number) {
@@ -20,13 +20,13 @@ export class ActivationService {
         return this.apiService.get<IActivation>(action);
     }
 
-    getActivations(pageNumber:string, pageSize:string) {
+    getActivations(pageNumber: string, pageSize: string) {
         const action = `activations`;
 
         let myParams = new HttpParams({
             fromObject: {
-                PageNumber:pageNumber,
-                PageSize:pageSize,
+                PageNumber: pageNumber,
+                PageSize: pageSize,
             }
         })
 
@@ -34,42 +34,36 @@ export class ActivationService {
         return response$;
     }
 
-    getReport(id: number){
+    getReport(id: number) {
         const action = `activations/${id}/report`;
 
-        return this.apiService.get(action,null,'arraybuffer');
+        return this.apiService.get(action, null, 'arraybuffer');
     }
 
-    getVersions()
-    {
+    getVersions() {
         const action = `activations/versions`;
         return this.apiService.get<string[]>(action);
     }
 
-    getEnvironments()
-    {
+    getEnvironments() {
         const action = `activations/environments`;
         return this.apiService.get<string[]>(action);
     }
 
 
-    getDetails(environmentId:string, version:string)
-    {
+    getDetails(environmentId: string, version: string) {
         const action = `activations/details/${environmentId}/${version}`;
         return this.apiService.get<Array<Array<string>>>(action);
     }
 
     getActivationErrorLog(id: number) {
-        const action = `activations/${id}/logs`;
+        const action = `activations/${id}/errorlog`;
         return this.apiService.get<IActivation>(action);
     }
 
-   getActivationErrorLog2(id: number) {
-    const apiUrl = `${environment.apiUrl}activations/${id}/logs`;
-    let response$ = this.httpClient.get<IActivation>(apiUrl).pipe(
-        tap(data => console.log('All: ' + JSON.stringify(data))),
-        catchError(null));
+    getActivationConsoleLog(id:number) {
+        const action = `activations/${id}/consolelog`;
+        return this.apiService.get<IActivation>(action);
+    }
 
-    return response$;
-}
 }

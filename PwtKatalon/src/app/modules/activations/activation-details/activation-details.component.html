@@ -78,9 +78,16 @@
             <div class="col-9">{{activation.testSuite}}</div>
           </div>
           <div class="row border-bottom">
-            <div class="col-3">Error/Console Log</div>
+            <div class="col-3">Error Log</div>
             <div class="col-9">
               <a class='btn btn-outline-secondary btn-sm' style="width:30%" [routerLink]="['/activations', activation.id, 'errorlog']">
+                <i class="fa fa-chevron-right"></i> Open Logs</a>
+            </div>
+          </div>
+          <div class="row border-bottom">
+            <div class="col-3">Console Log</div>
+            <div class="col-9">
+              <a class='btn btn-outline-secondary btn-sm' style="width:30%" [routerLink]="['/activations', activation.id, 'consolelog']">
                 <i class="fa fa-chevron-right"></i> Open Logs</a>
             </div>
           </div>

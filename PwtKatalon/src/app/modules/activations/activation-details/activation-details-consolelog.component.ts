@@ -8,12 +8,12 @@ import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 @Component({
   templateUrl: './activation-details-log.html',
 })
-export class ActivationDetailsErrorLogComponent implements OnInit {
+export class ActivationDetailsConsolelogComponent implements OnInit {
   activation: IActivation;
   id: number;
   errorMessage: any;
   log: string;
-
+  
   constructor(private route: ActivatedRoute,
     private location: Location,
     private service: ActivationService,
@@ -23,9 +23,9 @@ export class ActivationDetailsErrorLogComponent implements OnInit {
   ngOnInit() {
     this.spinnerService.show();
     this.id = +this.route.snapshot.paramMap.get('id')
-    this.service.getActivationErrorLog(this.id).subscribe((res) => {
+    this.service.getActivationConsoleLog(this.id).subscribe((res) => {
       this.activation = res;
-      this.log = this.activation.errorLog;
+      this.log = this.activation.consoleLog;
       this.spinnerService.hide();
     });
   }

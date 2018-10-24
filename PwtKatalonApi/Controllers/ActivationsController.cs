@@ -100,11 +100,22 @@ namespace PwtKatalonApi.Controllers
             return File(report.ZippedResults, "application/zip");
         }
 
-
-        [HttpGet("{id:int}/logs")]
-        public async Task<IActionResult> GetActivationErrorAndConsoleLog([FromRoute] int id)
+        [HttpGet("{id:int}/errorlog")]
+        public async Task<IActionResult> GetActivationErrorLog([FromRoute] int id)
         {
-            var activation = await _context.Activations.Select(a => new { a.Id, a.ErrorLog, a.ConsoleLog }).FirstOrDefaultAsync(b => b.Id == id);
+            var activation = await _context.Activations.Select(a => new { a.Id, a.ErrorLog }).FirstOrDefaultAsync(b => b.Id == id);
+            if (activation == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(activation);
+        }
+
+        [HttpGet("{id:int}/consolelog")]
+        public async Task<IActionResult> GetActivationConsoleLog([FromRoute] int id)
+        {
+            var activation = await _context.Activations.Select(a => new { a.Id, a.ConsoleLog }).FirstOrDefaultAsync(b => b.Id == id);
             if (activation == null)
             {
                 return NotFound();
