@@ -54,7 +54,185 @@ namespace PwtKatalonApi.Controllers
         [HttpGet("strona")]
         public ContentResult Index()
         {
-            return Content(@"<!DOCTYPE html>
+            return Content(htmlPage
+                , "text/html");
+            //return new ContentResult
+            //{
+            //    ContentType = "text/html",
+            //    Content = "<html><body>Hello World</body></html>"
+            //};
+            
+        }
+
+
+        [HttpGet("strona2")]
+        public string Index2()
+        {
+            return htmlPage;
+
+        }
+
+        // GET: api/Activations/5
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetActivations([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var activations = await _context.Activations.Include(u => u.SendUser).Select(a => new
+            { a.Id,
+                a.ActivationTime,
+                SendUserLogin = a.SendUser.Login,
+                SendUserOrganization = a.SendUser.Organization.OrganizationName,
+                a.Comment,
+                a.TestSuite,
+                a.ReportName,
+                a.Status,
+                a.RunArguments,
+                a.EnvironmentId,
+                a.Version,
+                a.CounterTotal,
+                a.CounterPassed,
+                a.CounterFailed,
+                a.CounterErrors,
+                a.CounterSeconds,
+                a.GitLog,
+                isZippedResults = a.ZippedResults == null ? false : true
+            }).SingleOrDefaultAsync(m => m.Id == id);
+
+            if (activations == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(activations);
+        }
+
+        [HttpGet("{id:int}/report")]
+        public async Task<IActionResult> GetActivationReport([FromRoute] int id)
+        {
+            var report = await _context.Activations.Select(a=> new { a.Id, a.ZippedResults }).FirstOrDefaultAsync(b => b.Id == id);
+            if (report == null || report.ZippedResults == null)
+            {
+                return NotFound();
+            }
+
+            return File(report.ZippedResults, "application/zip");
+        }
+
+        [HttpGet("{id:int}/errorlog")]
+        public async Task<IActionResult> GetActivationErrorLog([FromRoute] int id)
+        {
+            var activation = await _context.Activations.Select(a => new { a.Id, a.ErrorLog }).FirstOrDefaultAsync(b => b.Id == id);
+            if (activation == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(activation);
+        }
+
+        [HttpGet("{id:int}/consolelog")]
+        public async Task<IActionResult> GetActivationConsoleLog([FromRoute] int id)
+        {
+            var activation = await _context.Activations.Select(a => new { a.Id, a.ConsoleLog }).FirstOrDefaultAsync(b => b.Id == id);
+            if (activation == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(activation);
+        }
+
+        [HttpGet("versions")]
+        public IEnumerable<string> GetVersions()
+        {
+            return _context.Activations.Select(a => a.Version).Distinct();
+        }
+
+        [HttpGet("environments")]
+        public IEnumerable<string> GetEnvironments()
+        {
+            return _context.Activations.Select(a => a.EnvironmentId).Distinct();
+        }
+
+        [HttpGet("users")]
+        public IEnumerable<dynamic> GetUsers()
+        {
+            return _context.Activations.Select(a => new { a.SendUser.Id, a.SendUser.Login }).Distinct();
+        }
+
+        [HttpGet("details/{environment}/{version}")]
+        public async Task<IActionResult> GetDetailsForEnvironmentVersion([FromRoute] string environment, string version)
+        {
+            var act = _context.Activations.Select(a=>new
+            {
+                a.ActivationTime,
+                a.CounterPassed,
+                a.CounterFailed,
+                a.CounterErrors,
+                a.EnvironmentId,
+                a.Version,
+                a.Id,
+                a.SendUser.Login
+            })
+                .Where(a => a.EnvironmentId == environment && a.Version == version).ToList();
+            var result = new List<List<string>>();
+
+            result.Add(new List<string> { "Dates", "Passed", "Failed", "Errors","Id", "User" });
+            foreach (var item in act)
+            {
+                result.Add(new List<string> { item.ActivationTime.ToString(),
+                    GetCounterValue(item.CounterPassed),
+                    GetCounterValue(item.CounterFailed),
+                    GetCounterValue(item.CounterErrors),
+                     item.Id.ToString(), item.Login});
+            }
+
+            return Ok(result);
+        }
+
+        private string GetCounterValue(byte? counterValue)
+        {
+            return counterValue == null ? "0" : counterValue.ToString();
+        }
+
+        private bool ActivationsExists(int id)
+        {
+            return _context.Activations.Any(e => e.Id == id);
+        }
+
+        private List<LinkInfo> GetLinks(PagedList<ActivationsListModel> list)
+        {
+            var links = new List<LinkInfo>();
+
+            if (list.HasPreviousPage)
+                links.Add(CreateLink("GetActivations", list.PreviousPageNumber, list.PageSize, "previousPage", "GET"));
+
+            links.Add(CreateLink("GetActivations", list.PageNumber, list.PageSize, "self", "GET"));
+
+            if (list.HasNextPage)
+                links.Add(CreateLink("GetActivations", list.NextPageNumber, list.PageSize, "nextPage", "GET"));
+
+            return links;
+        }
+
+        private LinkInfo CreateLink(string routeName, int pageNumber, int pageSize, string rel, string method)
+        {
+            return new LinkInfo
+            {
+                Href = _urlHelper.Link(routeName,
+                            new { PageNumber = pageNumber, PageSize = pageSize }),
+                Rel = rel,
+                Method = method
+            };
+        }
+
+
+
+        string htmlPage = @"<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv=""Content-Type"" content=""text/html; charset=utf-8"">
@@ -2093,177 +2271,8 @@ function addExecutionEnvironmentInfo(environment_info) {
 </script>
 </body>
 </html>
+";
 
-"
-
-                , "text/html");
-            //return new ContentResult
-            //{
-            //    ContentType = "text/html",
-            //    Content = "<html><body>Hello World</body></html>"
-            //};
-            
-        }
-
-
-        [HttpGet("strona2")]
-        public string Index2()
-        {
-            return "<html><body>Hello World</body></html>";
-
-        }
-
-        // GET: api/Activations/5
-        [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetActivations([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var activations = await _context.Activations.Include(u => u.SendUser).Select(a => new
-            { a.Id,
-                a.ActivationTime,
-                SendUserLogin = a.SendUser.Login,
-                SendUserOrganization = a.SendUser.Organization.OrganizationName,
-                a.Comment,
-                a.TestSuite,
-                a.ReportName,
-                a.Status,
-                a.RunArguments,
-                a.EnvironmentId,
-                a.Version,
-                a.CounterTotal,
-                a.CounterPassed,
-                a.CounterFailed,
-                a.CounterErrors,
-                a.CounterSeconds,
-                a.GitLog,
-                isZippedResults = a.ZippedResults == null ? false : true
-            }).SingleOrDefaultAsync(m => m.Id == id);
-
-            if (activations == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(activations);
-        }
-
-        [HttpGet("{id:int}/report")]
-        public async Task<IActionResult> GetActivationReport([FromRoute] int id)
-        {
-            var report = await _context.Activations.Select(a=> new { a.Id, a.ZippedResults }).FirstOrDefaultAsync(b => b.Id == id);
-            if (report == null || report.ZippedResults == null)
-            {
-                return NotFound();
-            }
-
-            return File(report.ZippedResults, "application/zip");
-        }
-
-        [HttpGet("{id:int}/errorlog")]
-        public async Task<IActionResult> GetActivationErrorLog([FromRoute] int id)
-        {
-            var activation = await _context.Activations.Select(a => new { a.Id, a.ErrorLog }).FirstOrDefaultAsync(b => b.Id == id);
-            if (activation == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(activation);
-        }
-
-        [HttpGet("{id:int}/consolelog")]
-        public async Task<IActionResult> GetActivationConsoleLog([FromRoute] int id)
-        {
-            var activation = await _context.Activations.Select(a => new { a.Id, a.ConsoleLog }).FirstOrDefaultAsync(b => b.Id == id);
-            if (activation == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(activation);
-        }
-
-        [HttpGet("versions")]
-        public IEnumerable<string> GetVersions()
-        {
-            return _context.Activations.Select(a => a.Version).Distinct();
-        }
-
-        [HttpGet("environments")]
-        public IEnumerable<string> GetEnvironments()
-        {
-            return _context.Activations.Select(a => a.EnvironmentId).Distinct();
-        }
-
-        [HttpGet("details/{environment}/{version}")]
-        public async Task<IActionResult> GetDetailsForEnvironmentVersion([FromRoute] string environment, string version)
-        {
-            var act = _context.Activations.Select(a=>new
-            {
-                a.ActivationTime,
-                a.CounterPassed,
-                a.CounterFailed,
-                a.CounterErrors,
-                a.EnvironmentId,
-                a.Version,
-                a.Id,
-                a.SendUser.Login
-            })
-                .Where(a => a.EnvironmentId == environment && a.Version == version).ToList();
-            var result = new List<List<string>>();
-
-            result.Add(new List<string> { "Dates", "Passed", "Failed", "Errors","Id", "User" });
-            foreach (var item in act)
-            {
-                result.Add(new List<string> { item.ActivationTime.ToString(),
-                    GetCounterValue(item.CounterPassed),
-                    GetCounterValue(item.CounterFailed),
-                    GetCounterValue(item.CounterErrors),
-                     item.Id.ToString(), item.Login});
-            }
-
-            return Ok(result);
-        }
-
-        private string GetCounterValue(byte? counterValue)
-        {
-            return counterValue == null ? "0" : counterValue.ToString();
-        }
-
-        private bool ActivationsExists(int id)
-        {
-            return _context.Activations.Any(e => e.Id == id);
-        }
-
-        private List<LinkInfo> GetLinks(PagedList<ActivationsListModel> list)
-        {
-            var links = new List<LinkInfo>();
-
-            if (list.HasPreviousPage)
-                links.Add(CreateLink("GetActivations", list.PreviousPageNumber, list.PageSize, "previousPage", "GET"));
-
-            links.Add(CreateLink("GetActivations", list.PageNumber, list.PageSize, "self", "GET"));
-
-            if (list.HasNextPage)
-                links.Add(CreateLink("GetActivations", list.NextPageNumber, list.PageSize, "nextPage", "GET"));
-
-            return links;
-        }
-
-        private LinkInfo CreateLink(string routeName, int pageNumber, int pageSize, string rel, string method)
-        {
-            return new LinkInfo
-            {
-                Href = _urlHelper.Link(routeName,
-                            new { PageNumber = pageNumber, PageSize = pageSize }),
-                Rel = rel,
-                Method = method
-            };
-        }
 
     }
 }

@@ -16,8 +16,10 @@ const ACTIVATION_USER_INDEX: number =5;
 export class ChartComponent implements OnInit {
   versionDrop = new FormControl('');
   environmentDrop = new FormControl('');
+  usersDrop = new FormControl('');
   envinronments: string[];
   versions: string[];
+  users: string[];
   details: Array<Array<string>>;
   coloredColumnIndex: number;
   public lineChartData: Array<any> = [];
@@ -58,7 +60,10 @@ export class ChartComponent implements OnInit {
       this.service.getEnvironments().subscribe((res) => {
         this.envinronments = res
         this.environmentDrop.setValue(this.envinronments[0]);
-        this.refreshChart();
+        this.service.getUsers().subscribe((res) => {
+          this.users = res.login // TODO
+          this.refreshChart();
+        })
       });
     });
   }
