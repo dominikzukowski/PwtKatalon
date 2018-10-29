@@ -40,6 +40,12 @@ export class ActivationService {
         return this.apiService.get(action, null, 'arraybuffer');
     }
 
+    getReportPage(id: number) {
+        const action = `activations/strona2`;
+
+        return this.apiService.get(action);
+    }
+
     getVersions() {
         const action = `activations/versions`;
         return this.apiService.get<string[]>(action);
