@@ -39,6 +39,19 @@ export class ActivationDetailsComponent implements OnInit {
     this.location.back();
   }
 
+  getRepo() {
+
+    
+     this.service.getReportPage(this.activation.id).subscribe((r:string)=>{
+      var wnd = window.open("",);
+//console.log(r)
+      wnd.document.write(r);
+     } )
+    //   this.openRepo(r);
+    // })
+  }
+
+
   getFile() {
     this.spinnerService.show();
     this.service.getReport(this.activation.id).subscribe(respData => {
