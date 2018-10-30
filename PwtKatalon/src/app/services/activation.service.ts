@@ -61,8 +61,8 @@ export class ActivationService {
     }
 
 
-    getDetails(environmentId: string, version: string) {
-        const action = `activations/details/${environmentId}/${version}`;
+    getDetails(environmentId: string, version: string, user: string, count: string) {
+        const action = `activations/details/${environmentId}/${version}/${user}/${count}`;
         return this.apiService.get<Array<Array<string>>>(action);
     }
 

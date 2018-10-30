@@ -5,7 +5,8 @@
         <form>
           <div class="form-group">
             <label for="count">Number of last records:</label>
-            <select type="count" id="count" class="form-control" (change)="refreshChart()" >
+            <select type="count" id="count" class="form-control" (change)="changeCount($event.target.value)" 
+            [formControl]="countDrop" >
               <option value="10">10</option>
               <option value="50">50</option>
               <option value="100">100</option>
@@ -13,17 +14,20 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="env">User:</label>
-            <select type="env" id="env" class="form-control" (change)="refreshChart()" [formControl]="userDrop">
-              <option *ngFor="let user of users">
+            <label for="us">User:</label>
+            <select type="us" id="us" class="form-control" (change)="changeUser($event.target.value)" [formControl]="userDrop">
+              <option value="default">--Select--</option>
+              <option [value]="user.login" *ngFor="let user of users">
                 {{user.login}}
               </option>
             </select>
           </div>
           <div class="form-group">
             <label for="env">Envinronment:</label>
-            <select type="env" id="env" class="form-control" (change)="refreshChart()" [formControl]="environmentDrop">
-              <option *ngFor="let envinronment of envinronments">
+            <select type="env" id="env" class="form-control" (change)="changeEnvinronment($event.target.value)" 
+            [formControl]="environmentDrop">
+              <option value="default">--Select--</option>
+              <option [value]="envinronment" *ngFor="let envinronment of envinronments">
                 {{envinronment}}
               </option>
             </select>
@@ -31,9 +35,11 @@
         </form>
         <form>
           <div class="form-group">
-            <label for="ver">Version:</label>
-            <select type="ver" id="ver" class="form-control" (change)="refreshChart()" [formControl]="versionDrop">
-              <option *ngFor="let version of versions">
+            <label for="ver">Version:</label> 
+            <select type="ver" id="ver" class="form-control" (change)="changeVersion($event.target.value)" 
+            [formControl]="versionDrop">
+              <option value="default">--Select--</option>
+              <option [value]="version" *ngFor="let version of versions" >
                 {{version}}
               </option>
             </select>

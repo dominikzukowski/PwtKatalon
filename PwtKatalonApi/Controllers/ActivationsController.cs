@@ -164,8 +164,8 @@ namespace PwtKatalonApi.Controllers
             return _context.Activations.Select(a => new { a.SendUser.Id, a.SendUser.Login }).Distinct();
         }
 
-        [HttpGet("details/{environment}/{version}")]
-        public async Task<IActionResult> GetDetailsForEnvironmentVersion([FromRoute] string environment, string version)
+        [HttpGet("details/{environment}/{version}/{user}/{count}")]
+        public async Task<IActionResult> GetDetailsForEnvironmentVersion([FromRoute] string environment, string version, string user, int count)
         {
             var act = _context.Activations.Select(a=>new
             {
@@ -177,12 +177,21 @@ namespace PwtKatalonApi.Controllers
                 a.Version,
                 a.Id,
                 a.SendUser.Login
-            })
-                .Where(a => a.EnvironmentId == environment && a.Version == version).ToList();
+            });
+
+            if (environment != "default")
+                act = act.Where(a => a.EnvironmentId == environment);
+            if (version != "default")
+                act = act.Where(a => a.Version == version);
+            if (user != "default")
+                act = act.Where(a => a.Login == user);
+
+            act = act.Take(count);
+
             var result = new List<List<string>>();
 
             result.Add(new List<string> { "Dates", "Passed", "Failed", "Errors","Id", "User" });
-            foreach (var item in act)
+            foreach (var item in act.ToList())
             {
                 result.Add(new List<string> { item.ActivationTime.ToString(),
                     GetCounterValue(item.CounterPassed),

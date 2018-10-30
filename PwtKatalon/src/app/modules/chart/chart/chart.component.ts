@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivationService } from '../../../services/activation.service';
 import { FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { chartColors } from '../../../shared/chartcolors';
 import { IUser } from '../../../models/user';
 
 const ACTIVATION_ID_INDEX: number = 4;
 const ACTIVATION_LABEL_INDEX: number = 0;
-const ACTIVATION_USER_INDEX: number =5;
+const ACTIVATION_USER_INDEX: number = 5;
 
 @Component({
   selector: 'app-charts',
@@ -15,13 +15,20 @@ const ACTIVATION_USER_INDEX: number =5;
   styleUrls: ['./chart.component.css']
 })
 export class ChartComponent implements OnInit {
+  count: string;
+  userId: string;
+  envinronmentId: string;
+  version: string;
+
   versionDrop = new FormControl('');
   environmentDrop = new FormControl('');
   userDrop = new FormControl('');
-  //countDrop = new FormControl('');
+  countDrop = new FormControl('');
+
   envinronments: string[];
   versions: string[];
   users: IUser[];
+
   details: Array<Array<string>>;
   coloredColumnIndex: number;
   public lineChartData: Array<any> = [];
@@ -32,7 +39,7 @@ export class ChartComponent implements OnInit {
     responsive: true,
     elements: {
       line: {
-          tension: 0, // disables bezier curves
+        tension: 0, // disables bezier curves
       }
     }
   };
@@ -45,7 +52,7 @@ export class ChartComponent implements OnInit {
   },
   {
     backgroundColor: chartColors.failedColorTransaprent,
-    borderColor:  chartColors.failedColor,
+    borderColor: chartColors.failedColor,
   },
   {
     backgroundColor: chartColors.errorColorTransparent,
@@ -53,29 +60,80 @@ export class ChartComponent implements OnInit {
   }
   ];
 
-  constructor(private service: ActivationService, private router: Router) { }
+  constructor(private service: ActivationService, private router: Router,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.count = params['count'] ? params['count'] : "100";
+      this.userId = params['user'] ? params['user'] : "default";
+      this.envinronmentId = params['env'] ? params['env'] : "default";
+      this.version = params['ver'] ? params['ver'] : "default";
+
+      this.countDrop.setValue(this.count);
+      this.setUserDrop();
+      this.setEnvinronmentsDrop();
+      this.setVersionsDrop();
+
+      this.refreshChart();
+    })
+  }
+
+  setUserDrop(){
+    this.service.getUsers().subscribe((res) => {
+      this.users = res;
+      this.userDrop.setValue(this.userId);
+    });
+  }
+
+  setEnvinronmentsDrop(){
+    this.service.getEnvironments().subscribe((res) => {
+      this.envinronments = res;
+      this.environmentDrop.setValue(this.envinronmentId);
+    });
+  }
+
+  setVersionsDrop(){
     this.service.getVersions().subscribe((res) => {
       this.versions = res.reverse();
-      this.versionDrop.setValue(this.versions[0]);
-      this.service.getEnvironments().subscribe((res) => {
-        this.envinronments = res
-        this.environmentDrop.setValue(this.envinronments[0]);
-        this.service.getUsers().subscribe((res) => {
-          this.users = res // TODO
-          this.refreshChart();
-        })
-      });
+      this.versionDrop.setValue(this.version);
     });
   }
 
   refreshChart() {
-    this.getDetails(this.environmentDrop.value.trim(), this.versionDrop.value.trim());
+    this.getDetails(this.envinronmentId, this.version, this.userId, this.count);
   }
 
-  private getDetails(environment: string, version: string) {
-    this.service.getDetails(environment, version).subscribe((res) => {
+  changeEnvinronment(envinronmentId: any) {
+    this.envinronmentId = envinronmentId;
+    this.navigate()
+  }
+
+  changeUser(userId: any) {
+    this.userId = userId;
+    this.navigate()
+  }
+
+  changeVersion(version: any) {
+    this.version = version;
+    this.navigate()
+  }
+
+  changeCount(count: any) {
+    this.count = count;
+    this.navigate()
+  }
+
+  navigate(){
+    this.router.navigate(['/charts'], { queryParams: { 
+      count: this.count,
+      user: this.userId, 
+      env: this.envinronmentId,
+      ver: this.version } });
+  }
+
+  private getDetails(environment: string, version: string, user: string, count: string) {
+    this.service.getDetails(environment, version, user, count).subscribe((res) => {
 
       if (this.lineChartData)
         this.lineChartData.length = 0;
@@ -98,7 +156,7 @@ export class ChartComponent implements OnInit {
 
       this.coloredColumnIndex = index
       let tableColumn = table.rows[0].cells[index];
-    
+
       tableColumn.scrollIntoView();
 
     }
