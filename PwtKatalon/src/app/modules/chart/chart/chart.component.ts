@@ -3,6 +3,7 @@ import { ActivationService } from '../../../services/activation.service';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { chartColors } from '../../../shared/chartcolors';
+import { IUser } from '../../../models/user';
 
 const ACTIVATION_ID_INDEX: number = 4;
 const ACTIVATION_LABEL_INDEX: number = 0;
@@ -16,10 +17,11 @@ const ACTIVATION_USER_INDEX: number =5;
 export class ChartComponent implements OnInit {
   versionDrop = new FormControl('');
   environmentDrop = new FormControl('');
-  usersDrop = new FormControl('');
+  userDrop = new FormControl('');
+  //countDrop = new FormControl('');
   envinronments: string[];
   versions: string[];
-  users: string[];
+  users: IUser[];
   details: Array<Array<string>>;
   coloredColumnIndex: number;
   public lineChartData: Array<any> = [];
@@ -61,7 +63,7 @@ export class ChartComponent implements OnInit {
         this.envinronments = res
         this.environmentDrop.setValue(this.envinronments[0]);
         this.service.getUsers().subscribe((res) => {
-          this.users = res.login // TODO
+          this.users = res // TODO
           this.refreshChart();
         })
       });

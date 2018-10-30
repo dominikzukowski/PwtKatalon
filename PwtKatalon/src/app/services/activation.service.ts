@@ -3,8 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { IActivation } from "../models/activation";
 import { IPagination } from "../shared/pagination";
 import { ApiService } from "./api.service";
-import { environment } from "src/environments/environment";
-import { tap, catchError } from "rxjs/operators";
+import { IUser } from "../models/user";
 
 
 
@@ -58,7 +57,7 @@ export class ActivationService {
 
     getUsers() {
         const action = `activations/users`;
-        return this.apiService.get(action);
+        return this.apiService.get<IUser[]>(action);
     }
 
 

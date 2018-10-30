@@ -2,48 +2,49 @@
   <div class="card-body">
     <div class="row">
       <div class="col-2">
-      <form>
+        <form>
           <div class="form-group">
-              <label for="count">Number of last records:</label>
-              <select type="count" id="count" class="form-control" (change)="refreshChart()" [formControl]="countDrop">
-                    <option value="10">10</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                    <option value="500">500</option>
-                </select>
+            <label for="count">Number of last records:</label>
+            <select type="count" id="count" class="form-control" (change)="refreshChart()" >
+              <option value="10">10</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option value="500">500</option>
+            </select>
           </div>
           <div class="form-group">
-              <label for="env">User:</label>
-              <select type="env" id="env" class="form-control" (change)="refreshChart()" [formControl]="userDrop">
-                <option *ngFor="let user of users">
-                  {{users}}
-                </option>
-              </select>
-            </div>
-        <div class="form-group">
-          <label for="env">Envinronment:</label>
-          <select type="env" id="env" class="form-control" (change)="refreshChart()" [formControl]="environmentDrop">
-            <option *ngFor="let envinronment of envinronments">
-              {{envinronment}}
-            </option>
-          </select>
-        </div>
-      </form>
-      <form>
-        <div class="form-group">
-          <label for="ver">Version:</label>
-          <select type="ver" id="ver" class="form-control" (change)="refreshChart()" [formControl]="versionDrop">
-            <option *ngFor="let version of versions">
-              {{version}}
-            </option>
-          </select>
-        </div>
-      </form>
-    </div>
+            <label for="env">User:</label>
+            <select type="env" id="env" class="form-control" (change)="refreshChart()" [formControl]="userDrop">
+              <option *ngFor="let user of users">
+                {{user.login}}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="env">Envinronment:</label>
+            <select type="env" id="env" class="form-control" (change)="refreshChart()" [formControl]="environmentDrop">
+              <option *ngFor="let envinronment of envinronments">
+                {{envinronment}}
+              </option>
+            </select>
+          </div>
+        </form>
+        <form>
+          <div class="form-group">
+            <label for="ver">Version:</label>
+            <select type="ver" id="ver" class="form-control" (change)="refreshChart()" [formControl]="versionDrop">
+              <option *ngFor="let version of versions">
+                {{version}}
+              </option>
+            </select>
+          </div>
+        </form>
+      </div>
       <div class="col-8">
         <div style="display: block">
-          <canvas *ngIf='lineChartData.length>0' baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [legend]="lineChartLegend"
-            [colors]="lineChartColors" [chartType]="lineChartType" (chartClick)="chartClicked($event, table)">
+          <canvas *ngIf='lineChartData.length>0' baseChart [datasets]="lineChartData" [labels]="lineChartLabels"
+            [options]="lineChartOptions" [legend]="lineChartLegend" [colors]="lineChartColors" [chartType]="lineChartType"
+            (chartClick)="chartClicked($event, table)">
           </canvas>
         </div>
       </div>
@@ -52,10 +53,11 @@
       <div class="col-12" style="margin-bottom: 10px">
         <table #table class="table table-responsive table-condensed">
           <tr>
-            <th  *ngFor="let label of lineChartLabels">{{label}}</th>
+            <th *ngFor="let label of lineChartLabels">{{label}}</th>
           </tr>
           <tr *ngFor="let d of lineChartData">
-            <td [ngStyle]="{'background':getColor(j,d.label)}" *ngFor="let label of lineChartLabels; let j=index" (click)='openActivationDetails(j+1)'>{{d && d.data[j]}}</td>
+            <td [ngStyle]="{'background':getColor(j,d.label)}" *ngFor="let label of lineChartLabels; let j=index"
+              (click)='openActivationDetails(j+1)'>{{d && d.data[j]}}</td>
           </tr>
           <tr>
             <td *ngFor="let user of lineTableActivationUsers; let j=index" (click)='openActivationDetails(j+1)'>{{user}}</td>
