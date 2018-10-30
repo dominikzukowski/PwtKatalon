@@ -19,8 +19,8 @@
                 </thead>
                 <tbody>
                     <tr *ngFor='let activation of activations' (click)='openActivationDetails(activation.id)'
-                     [ngClass]="{ 'green': activation.counterPassed > 26, 
-                     'orange': activation.counterPassed > 20 && activation.counterPassed <= 26}">
+                     [ngClass]="{ 'green': activation.counterPassed >= 26, 
+                     'orange': activation.counterPassed > 20 && activation.counterPassed < 26}">
                         <td>{{activation.id}}</td>
                         <td>{{activation.activationTime | date:'dd-MM-yyyy HH:mm:ss'}}</td>
                         <td>{{activation.comment}}</td>
