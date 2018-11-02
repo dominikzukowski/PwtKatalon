@@ -14,6 +14,7 @@ export class ActivationDetailsComponent implements OnInit {
   activation: IActivation;
   errorMessage: any;
   passed: any;
+  url: string = 'about:blank';
   public chartLabels: string[] = ['Passed', 'Failed', 'Error'];
   public chartData: number[];
   public chartType: string = 'pie';
@@ -50,7 +51,18 @@ export class ActivationDetailsComponent implements OnInit {
     //   this.openRepo(r);
     // })
   }
+;
+  getFile2(){
+    this.spinnerService.show();
+    this.url = "http://pwtkatalon/activations/200/report";
+    var dupa = document.getElementById("reportiframe");
+    
+  }
 
+  uploadDone(){
+    console.log("done");
+    this.spinnerService.hide();
+  }
 
   getFile() {
     this.spinnerService.show();

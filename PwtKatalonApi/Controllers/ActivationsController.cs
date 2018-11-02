@@ -119,6 +119,16 @@ namespace PwtKatalonApi.Controllers
                 return NotFound();
             }
 
+            System.Net.Mime.ContentDisposition cd = new System.Net.Mime.ContentDisposition
+            {
+                FileName = "test.zip",
+                Inline = false  // false = prompt the user for downloading;  true = browser to try to show the file inline
+            };
+            Response.Headers.Add("Content-Disposition", cd.ToString());
+            Response.Headers.Add("X-Content-Type-Options", "nosniff");
+           // Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:4200");
+
+
             return File(report.ZippedResults, "application/zip");
         }
 

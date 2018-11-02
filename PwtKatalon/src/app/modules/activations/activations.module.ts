@@ -10,17 +10,17 @@ import { PagerService } from '../../shared/pagination';
 import { ChartsModule } from 'ng2-charts';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { ActivationDetailsConsolelogComponent } from './activation-details/activation-details-consolelog.component';
+import { SafePipe } from '../../shared/pipes/safepipe.pipe';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ChartsModule,
-    Ng4LoadingSpinnerModule.forRoot(),
+    Ng4LoadingSpinnerModule,
     RouterModule.forChild([
       {path: 'activations', 
-      component: ActivationsListComponent, 
-      runGuardsAndResolvers: 'always'},
+      component: ActivationsListComponent},
       {path: 'activations/:id', component: ActivationDetailsComponent},
       {path: 'activations/:id/errorlog', component: ActivationDetailsErrorLogComponent, pathMatch: 'full'},
       {path: 'activations/:id/consolelog', component: ActivationDetailsConsolelogComponent, pathMatch: 'full'}
@@ -31,7 +31,8 @@ import { ActivationDetailsConsolelogComponent } from './activation-details/activ
     ActivationDetailsComponent,
     ActivationDetailsErrorLogComponent,
     ActivationDetailsConsolelogComponent,
-    SecondsToDatePipe
+    SecondsToDatePipe,
+    SafePipe
   ],
   providers: [PagerService]
 })
