@@ -3,6 +3,7 @@ import { IActivation } from '../../../models/activation';
 import { ActivationService } from 'src/app/services/activation.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PagerService, IPagingInfo } from '../../../shared/pagination';
+import { DateUtils } from '../../../shared/dateUtils';
 
 @Component({
   templateUrl: './activations-list.component.html',
@@ -18,11 +19,11 @@ export class ActivationsListComponent implements OnInit {
 
   pager: any = {};
 
-  constructor(private service: ActivationService, 
-    private router: Router, 
-    private activatedRoute: ActivatedRoute, 
+  constructor(private service: ActivationService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
     private pagerService: PagerService) {
-       this.activations = [];
+    this.activations = [];
   }
 
   ngOnInit() {
@@ -47,11 +48,16 @@ export class ActivationsListComponent implements OnInit {
 
   populateActivations() {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.pageNumber = params['PageNumber'] ? params['PageNumber'] : "1" ;
+      this.pageNumber = params['PageNumber'] ? params['PageNumber'] : "1";
       this.pageSize = params['PageSize'] ? params['PageSize'] : "10";
 
       this.service.getActivations(this.pageNumber, this.pageSize).subscribe((res) => {
-      this.activations = res.items;
+        this.activations = res.items;
+
+        this.activations.forEach((element: IActivation) => {
+          element.activationTime = DateUtils.getGMT1Date(element.activationTime.toString());
+          console.log(element.activationTime)
+        });
         this.setPage(res.paging);
       });
     },

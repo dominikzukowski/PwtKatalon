@@ -11,7 +11,7 @@ import { ApiService } from './services/api.service';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -19,7 +19,11 @@ import { ApiService } from './services/api.service';
     NgbModule.forRoot(),
     RouterModule.forRoot([
       {path: '', redirectTo: 'activations', pathMatch: 'full'},
-      {path: '**', redirectTo: 'activations', pathMatch: 'full'}
+      {path: '**', redirectTo: 'activations', pathMatch: 'full'},
+      {
+        path: "charts",
+        loadChildren: "../app/modules/chart/chart.module#ChartModule"
+      },
     ], {onSameUrlNavigation: 'reload'}),
     ActivationsModule,
     ChartModule,

@@ -5,6 +5,7 @@ import { ActivationService } from '../../../services/activation.service';
 import { Location } from '@angular/common';
 import { chartColors } from '../../../shared/chartcolors';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { DateUtils } from '../../../shared/dateUtils';
 
 @Component({
   templateUrl: './activation-details.component.html',
@@ -32,6 +33,7 @@ export class ActivationDetailsComponent implements OnInit {
     let id = +this.route.snapshot.paramMap.get('id')
     this.service.getActivation(id).subscribe((res) => {
       this.activation = res;
+      this.activation.activationTime =  DateUtils.getGMT1Date(this.activation.activationTime.toString())
       this.chartData = [this.activation.counterPassed, this.activation.counterFailed, this.activation.counterErrors];
     });
   }

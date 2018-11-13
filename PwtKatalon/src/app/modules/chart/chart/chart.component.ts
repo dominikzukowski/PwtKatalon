@@ -4,6 +4,7 @@ import { FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { chartColors } from '../../../shared/chartcolors';
 import { IUser } from '../../../models/user';
+import { DateUtils } from '../../../shared/dateUtils';
 
 const ACTIVATION_ID_INDEX: number = 4;
 const ACTIVATION_LABEL_INDEX: number = 0;
@@ -146,6 +147,10 @@ export class ChartComponent implements OnInit {
       }
 
       this.lineChartLabels = arrayColumn(this.details.slice(1), 0);
+
+      // for (let i = 1; i<= this.lineChartLabels.length; i++) {
+      //   this.lineChartLabels[i] =  DateUtils.getGMT1Date(this.lineChartLabels[i]);
+      // }
       this.lineTableActivationUsers = arrayColumn(this.details.slice(1), ACTIVATION_USER_INDEX);
     });
   }
