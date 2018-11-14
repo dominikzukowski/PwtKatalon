@@ -148,9 +148,10 @@ export class ChartComponent implements OnInit {
 
       this.lineChartLabels = arrayColumn(this.details.slice(1), 0);
 
-      // for (let i = 1; i<= this.lineChartLabels.length; i++) {
-      //   this.lineChartLabels[i] =  DateUtils.getGMT1Date(this.lineChartLabels[i]);
-      // }
+      for (let i = 0; i < this.lineChartLabels.length; i++) {
+        this.lineChartLabels[i] =  DateUtils.getGMTDateTransformToLocalTime(this.lineChartLabels[i]).toLocaleString();
+      }
+      
       this.lineTableActivationUsers = arrayColumn(this.details.slice(1), ACTIVATION_USER_INDEX);
     });
   }

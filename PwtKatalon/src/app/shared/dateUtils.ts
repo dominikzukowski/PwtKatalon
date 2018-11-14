@@ -1,5 +1,5 @@
 export class DateUtils {
-    public static getGMT1Date(indate: string){
+    public static getGMTDateTransformToLocalTime(indate: string){
         var date = new Date(indate);
         var offset = new Date().getTimezoneOffset();
         var hours = offset/60 * (-1);

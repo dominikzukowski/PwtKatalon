@@ -33,7 +33,7 @@ export class ActivationDetailsComponent implements OnInit {
     let id = +this.route.snapshot.paramMap.get('id')
     this.service.getActivation(id).subscribe((res) => {
       this.activation = res;
-      this.activation.activationTime =  DateUtils.getGMT1Date(this.activation.activationTime.toString())
+      this.activation.activationTime = DateUtils.getGMTDateTransformToLocalTime(this.activation.activationTime.toString())
       this.chartData = [this.activation.counterPassed, this.activation.counterFailed, this.activation.counterErrors];
     });
   }

@@ -55,7 +55,7 @@ export class ActivationsListComponent implements OnInit {
         this.activations = res.items;
 
         this.activations.forEach((element: IActivation) => {
-          element.activationTime = DateUtils.getGMT1Date(element.activationTime.toString());
+          element.activationTime = DateUtils.getGMTDateTransformToLocalTime(element.activationTime.toString());
           console.log(element.activationTime)
         });
         this.setPage(res.paging);
