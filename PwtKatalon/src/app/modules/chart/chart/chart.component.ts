@@ -66,7 +66,7 @@ export class ChartComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.count = params['count'] ? params['count'] : "100";
+      this.count = params['count'] ? params['count'] : "50";
       this.userId = params['user'] ? params['user'] : "default";
       this.envinronmentId = params['env'] ? params['env'] : "default";
       this.version = params['ver'] ? params['ver'] : "default";
@@ -151,7 +151,7 @@ export class ChartComponent implements OnInit {
       for (let i = 0; i < this.lineChartLabels.length; i++) {
         this.lineChartLabels[i] =  DateUtils.getGMTDateTransformToLocalTime(this.lineChartLabels[i]).toLocaleString();
       }
-      
+
       this.lineTableActivationUsers = arrayColumn(this.details.slice(1), ACTIVATION_USER_INDEX);
     });
   }
